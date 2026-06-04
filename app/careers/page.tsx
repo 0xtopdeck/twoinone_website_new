@@ -11,6 +11,7 @@ import {
 import { Users, Briefcase, MapPin, Globe, CheckCircle2, FileText } from "lucide-react";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useLanguage } from "@/components/LanguageContext";
+import { useTheme } from "@/components/ThemeContext";
 import { translations } from "@/lib/translations";
 import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
 import { useHeroIntro } from "@/components/useHeroIntro";
@@ -18,6 +19,7 @@ import clsx from "clsx";
 
 export default function CareersPage() {
   const { lang, isRTL } = useLanguage();
+  const { theme } = useTheme();
   const t = translations[lang];
 
   const [token, setToken] = useState<string | null>(null);
@@ -58,7 +60,8 @@ export default function CareersPage() {
       formData.append("name", (document.getElementById("name") as HTMLInputElement).value);
       formData.append("email", (document.getElementById("email") as HTMLInputElement).value);
       formData.append("position", (document.getElementById("position") as HTMLSelectElement).value);
-      
+      formData.append("token", token || "");
+
       const fileInput = document.getElementById("cv") as HTMLInputElement;
       if (fileInput.files?.[0]) {
         formData.append("cv", fileInput.files[0]);
@@ -281,9 +284,9 @@ export default function CareersPage() {
 
                     <div className={clsx("pt-2 flex", isRTL && "justify-end")}>
                       <Turnstile
-                        siteKey="1x00000000000000000000AA"
+                        siteKey="0x4AAAAAACul__dWFbvMuQKG"
                         onSuccess={(token) => setToken(token)}
-                        options={{ size: "normal", theme: "light" }}
+                        options={{ size: "normal", theme }}
                       />
                     </div>
 

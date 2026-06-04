@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export async function POST(req: Request) {
   try {
@@ -8,6 +9,15 @@ export async function POST(req: Request) {
     const email = formData.get("email") as string;
     const position = formData.get("position") as string;
     const cv = formData.get("cv") as File;
+    const token = formData.get("token") as string;
+
+    const ip = req.headers.get("cf-connecting-ip") || req.headers.get("x-forwarded-for");
+    if (!(await verifyTurnstile(token, ip))) {
+      return NextResponse.json(
+        { success: false, error: "Bot verification failed" },
+        { status: 400 }
+      );
+    }
 
     if (!cv) {
       return NextResponse.json({ success: false, error: "No CV provided" }, { status: 400 });
@@ -25,7 +35,7 @@ export async function POST(req: Request) {
 
     const mailOptions = {
       from: `"${name}" <${process.env.GMAIL_USER}>`,
-      to: process.env.CONTACT_EMAIL,
+      to: process.env.CONTACT_EMAIL || "business@twoinone.llc",
       replyTo: email,
       subject: `New Job Application: ${name} - ${position}`,
       text: `Applicant Name: ${name}\nApplicant Email: ${email}\nPosition Applied For: ${position}`,

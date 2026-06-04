@@ -12,6 +12,7 @@ import { Mail, MapPin, Phone, MessageSquare } from "lucide-react";
 import { COMPANY } from "@/lib/siteData";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useLanguage } from "@/components/LanguageContext";
+import { useTheme } from "@/components/ThemeContext";
 import { translations } from "@/lib/translations";
 import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
 import { useHeroIntro } from "@/components/useHeroIntro";
@@ -19,6 +20,7 @@ import clsx from "clsx";
 
 export default function ContactPage() {
   const { lang, isRTL } = useLanguage();
+  const { theme } = useTheme();
   const t = translations[lang];
 
   const [token, setToken] = useState<string | null>(null);
@@ -48,6 +50,7 @@ export default function ContactPage() {
           email: (document.getElementById("email") as HTMLInputElement).value,
           division: (document.getElementById("division") as HTMLSelectElement).value,
           message: (document.getElementById("message") as HTMLTextAreaElement).value,
+          token,
         }),
       });
 
@@ -251,9 +254,9 @@ export default function ContactPage() {
 
                   <div className={clsx("pt-2 flex", isRTL && "justify-end")}>
                     <Turnstile
-                      siteKey="1x00000000000000000000AA"
+                      siteKey="0x4AAAAAACul__dWFbvMuQKG"
                       onSuccess={(token) => setToken(token)}
-                      options={{ size: "normal", theme: "light" }}
+                      options={{ size: "normal", theme }}
                     />
                   </div>
 
