@@ -4,19 +4,19 @@ import { COMPANY } from "@/lib/siteData";
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="bg-offwhite min-h-screen pt-32 pb-24">
-      <div className="container mx-auto px-4 md:px-8 max-w-4xl text-forest">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold uppercase tracking-tighter mb-8 bg-forest text-offwhite py-6 px-8 rounded-sm">
-          Privacy <span className="text-gold italic font-normal">Policy.</span>
+    <div className="bg-background min-h-screen pt-32 pb-24">
+      <div className="container mx-auto px-4 md:px-8 max-w-4xl text-foreground">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold uppercase tracking-tighter mb-8 bg-surface text-foreground py-6 px-8 rounded-sm">
+          Privacy <span className="text-accent italic font-normal">Policy.</span>
         </h1>
 
-        <div className="space-y-8 font-normal leading-relaxed text-forest/80 text-lg text-balance">
+        <div className="space-y-8 font-normal leading-relaxed text-muted text-lg text-balance">
           <p>
             <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
           </p>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               1. Information We Collect
             </h2>
             <p className="mb-4">
@@ -24,7 +24,7 @@ export default function PrivacyPolicyPage() {
               professional and corporate data necessary to fulfill wholesale inquiries,
               logistics coordination, and legal compliance.
             </p>
-            <ul className="list-disc pl-6 space-y-2 marker:text-gold">
+            <ul className="list-disc pl-6 space-y-2 marker:text-accent">
               <li>Corporate email addresses and contact names via our inquiry forms.</li>
               <li>Company registration numbers (CR) and tax identifiers (VATIN).</li>
               <li>IP addresses and browser telemetry collected securely against bots (Cloudflare Turnstile).</li>
@@ -32,7 +32,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               2. How We Use Your Data
             </h2>
             <p className="mb-4">
@@ -44,7 +44,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               3. Data Security
             </h2>
             <p className="mb-4">
@@ -56,7 +56,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               4. Contact the Data Controller
             </h2>
             <p className="mb-4">
@@ -67,7 +67,7 @@ export default function PrivacyPolicyPage() {
               <br />
               <strong>Email:</strong> {COMPANY.email}
               <br />
-              <strong>Address:</strong> {COMPANY.address}
+              <strong>Address:</strong> {COMPANY.address.en}
             </p>
           </section>
         </div>

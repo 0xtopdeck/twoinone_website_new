@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AnimatedSection,
   StaggerContainer,
@@ -12,6 +12,7 @@ import {
 import { ArrowRight, Droplets, HardHat, Wheat } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { translations } from "@/lib/translations";
+import Planet from "@/components/Planet";
 import clsx from "clsx";
 
 export default function Home() {
@@ -21,139 +22,215 @@ export default function Home() {
     offset: ["start end", "end start"],
   });
 
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { lang, isRTL } = useLanguage();
   const t = translations[lang];
 
-  const [activeMobileCard, setActiveMobileCard] = useState<'agri' | 'construction' | null>(null);
   const steelY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   const plywoodY = useTransform(scrollYProgress, [0, 1], ["5%", "-5%"]);
 
+  // Hero load-in: bar + planet first, then the headline types and the
+  // eyebrow / subcopy / buttons reveal around it.
+  const [reveal, setReveal] = useState(false);
+  const [typed, setTyped] = useState(0);
+  const [doneTyping, setDoneTyping] = useState(false);
+
+  const line1 = lang === "ar" ? "تخصصان." : "Two Disciplines.";
+  const line2 = lang === "ar" ? "معيار واحد." : "One Standard.";
+  const shown1 = doneTyping ? line1 : line1.slice(0, Math.min(typed, line1.length));
+  const shown2 = doneTyping ? line2 : typed > line1.length ? line2.slice(0, typed - line1.length) : "";
+  const caretOn1 = reveal && !doneTyping && typed <= line1.length;
+  const caretOn2 = reveal && !doneTyping && typed > line1.length;
+
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setReveal(true);
+      setTyped(999);
+      setDoneTyping(true);
+      return;
+    }
+    const id = setTimeout(() => setReveal(true), 700);
+    return () => clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!reveal || doneTyping) return;
+    const len = line1.length + line2.length;
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setTyped(i);
+      if (i >= len) {
+        clearInterval(id);
+        setDoneTyping(true);
+      }
+    }, 48);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reveal]);
+
+  const stats = [
+    { value: t.agriculture.stats.tonnageValue, label: t.agriculture.stats.tonnage },
+    { value: t.agriculture.stats.globalReachValue, label: t.agriculture.stats.globalReach },
+    { value: t.agriculture.stats.shipmentsValue, label: t.agriculture.stats.shipments },
+  ];
+
   return (
     <>
-      {/* 1. HERO SECTION: The Bridge */}
-      <section className="relative w-full h-screen min-h-[700px] flex overflow-hidden bg-forest">
-        {/* Main Background - Bulker Ship */}
-        <div className="absolute inset-0 z-0">
-          <video
-            ref={videoRef}
-            src="/images/hero_water.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover object-[98%_center] md:object-center opacity-80"
-          />
-          <div className="absolute inset-0 bg-forest/40 md:bg-forest/50 mix-blend-multiply" />
-          <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-forest/30" />
-          {/* Subtle radial glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(15,26,18,0.4)_100%)]" />
+      {/* 1. HERO — The Planet */}
+      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-background px-6 pt-28 pb-20">
+        {/* Rotating dot-grid planet with brand trajectory arcs */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 aspect-square w-[min(96vh,920px)] -translate-x-1/2 -translate-y-1/2"
+        >
+          <Planet className="absolute inset-0 h-full w-full" />
+        </motion.div>
+        {/* Seat the planet into the background */}
+        <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_34%,var(--background)_82%)]" />
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            animate={reveal ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-7 inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.35em] text-accent"
+          >
+            <span className="h-px w-8 bg-accent/50" />
+            {lang === "ar" ? "اثنين في واحد ش.م.م" : "Two in One LLC"}
+            <span className="h-px w-8 bg-accent/50" />
+          </motion.span>
+
+          <h1 className="font-serif text-5xl font-bold uppercase leading-[0.95] tracking-tighter text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
+            <span className="sr-only">{line1} {line2}</span>
+            <span aria-hidden="true">
+              {shown1}
+              {caretOn1 && <span className="animate-caret font-sans font-normal text-accent">|</span>}
+              <br />
+              <span className="text-accent">{shown2}</span>
+              {caretOn2 && <span className="animate-caret font-sans font-normal text-accent">|</span>}
+            </span>
+          </h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={doneTyping ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-8 max-w-xl text-balance text-base leading-relaxed text-muted md:text-lg"
+          >
+            {lang === "ar"
+              ? "تجارة الجملة الزراعية والإنشاءات الصناعية — التوريد والفحص والتسليم بدقة سيادية."
+              : "Agricultural wholesale and industrial construction - sourced, surveyed, and delivered with sovereign-grade precision."}
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={doneTyping ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-12 flex flex-col items-center gap-4 sm:flex-row"
+          >
+            <Link
+              href="/agriculture"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent-2 px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-background shadow-premium transition-all hover:opacity-90"
+            >
+              <Wheat className="h-4 w-4" />
+              <span>{t.home.hero.exploreAgri}</span>
+              <ArrowRight className={clsx("h-4 w-4 transition-transform group-hover:translate-x-1", isRTL && "rotate-180")} />
+            </Link>
+            <Link
+              href="/construction"
+              className="group inline-flex items-center gap-2 rounded-full border border-accent/60 px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-accent transition-all hover:bg-accent hover:text-background"
+            >
+              <HardHat className="h-4 w-4" />
+              <span>{t.home.hero.exploreConstruction}</span>
+              <ArrowRight className={clsx("h-4 w-4 transition-transform group-hover:translate-x-1", isRTL && "rotate-180")} />
+            </Link>
+          </motion.div>
         </div>
 
-        {/* Content Layers */}
-        <div className="relative z-10 w-full h-full flex flex-col md:flex-row">
-          {/* Agri Left */}
-          <div 
-            onClick={() => setActiveMobileCard(prev => prev === 'agri' ? null : 'agri')}
-            className="flex-1 flex flex-col justify-end p-10 md:p-20 border-b md:border-b-0 md:border-r border-white/5 group relative overflow-hidden cursor-pointer"
-          >
-            {/* Hover Background Reveal */}
-            <div 
-              className={clsx(
-                "absolute inset-0 transition-opacity duration-1000 z-0",
-                activeMobileCard === 'agri' ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"
+        {/* Scroll hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={doneTyping ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.6 }}
+          className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+        >
+          <div className="h-12 w-[1px] bg-gradient-to-b from-transparent via-accent/40 to-transparent" />
+        </motion.div>
+      </section>
+
+      {/* 1b. GLOBAL TRADE — vessel intro band (bridges the planet to the divisions) */}
+      <section className="relative w-full min-h-[78vh] flex items-center overflow-hidden bg-[#06080b]">
+        <video
+          src="/images/hero_water.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#06080b] via-[#06080b]/85 to-[#06080b]/40 rtl:bg-gradient-to-l" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#06080b] via-transparent to-[#06080b]/80" />
+
+        <div className="container relative z-10 mx-auto px-6 md:px-12">
+          <AnimatedSection direction="up" className={clsx("max-w-2xl", isRTL && "font-arabic text-start")}>
+            <span className="mb-6 inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.35em] text-accent">
+              <span className="h-px w-8 bg-accent/50" />
+              {lang === "ar" ? "بيت تجارة عالمي" : "A Global Trade House"}
+            </span>
+            <h2 className="font-serif text-4xl md:text-6xl font-bold uppercase tracking-tighter leading-[0.95] text-white">
+              {lang === "ar" ? (
+                <>عبر خطوط <br /> <span className="text-accent">الشحن العالمية.</span></>
+              ) : (
+                <>Across the world&apos;s <br /> <span className="text-accent">shipping lanes.</span></>
               )}
-            >
-              <Image
-                src="/images/wheat_brays_hero.png"
-                alt="Medium-Hard Wheat Field"
-                fill
-                className="object-cover object-center scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
-              />
-              <div className="absolute inset-0 bg-forest/80" />
+            </h2>
+            <p className="mt-8 max-w-xl text-base md:text-lg leading-relaxed text-white/70">
+              {lang === "ar"
+                ? "تجمع شركة اثنين في واحد ش.م.م بين تجارة الجملة الزراعية وتوريد مواد الإنشاءات الصناعية تحت معيار واحد — توريد وفحص وتسليم السلع والمواد بالجملة بحراً إلى العملاء حول العالم."
+                : "Two in One LLC unites agricultural wholesale and industrial construction supply under one standard — sourcing, surveying, and delivering bulk commodities and materials by sea to clients across the globe."}
+            </p>
+            <div className="mt-12 grid max-w-lg grid-cols-3 gap-6">
+              {stats.map((s) => (
+                <div key={s.label} className="border-l border-accent/40 pl-4 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-4">
+                  <div className="font-serif text-2xl md:text-3xl font-bold text-accent" style={{ direction: "ltr" }}>
+                    {s.value}
+                  </div>
+                  <div className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/50">
+                    {s.label}
+                  </div>
+                </div>
+              ))}
             </div>
-
-            <AnimatedSection direction="up" delay={0.2} className="relative z-10 w-full max-w-lg">
-              <span className="text-gold font-serif italic mb-6 block flex items-center gap-3 premium-tracking text-xs uppercase">
-                <Wheat className="w-5 h-5" /> {t.home.hero.div1}
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-offwhite uppercase tracking-tight leading-[1.1] mb-8 text-shadow-premium">
-                {lang === 'ar' ? (
-                  <>تجارة الجملة <br /> <span className="text-gold/90">الزراعية</span></>
-                ) : (
-                  <>Agricultural <br /> <span className="text-gold/90">Wholesale</span></>
-                )}
-              </h2>
-              <p className="text-offwhite/70 font-normal text-base md:text-lg leading-relaxed mb-10 max-w-sm text-balance">
-                {t.home.hero.agriDesc}
-              </p>
-              <Link
-                href="/agriculture"
-                className="inline-flex items-center space-x-3 text-offwhite hover:text-gold transition-all font-semibold text-xs tracking-[0.2em] uppercase group/link py-2 border-b border-white/10 hover:border-gold"
-              >
-                <span>{t.home.hero.exploreAgri}</span>
-                <ArrowRight className={clsx("w-4 h-4 transform group-hover/link:translate-x-2 transition-transform", isRTL && "rotate-180")} />
-              </Link>
-            </AnimatedSection>
-          </div>
-
-          <div 
-            onClick={() => setActiveMobileCard(prev => prev === 'construction' ? null : 'construction')}
-            className="flex-1 flex flex-col justify-end p-10 md:p-20 group relative overflow-hidden border-t md:border-t-0 border-white/5 cursor-pointer"
-          >
-            <div 
-              className={clsx(
-                "absolute inset-0 transition-opacity duration-1000 z-0",
-                activeMobileCard === 'construction' ? "opacity-100" : "opacity-0 md:group-hover:opacity-100"
-              )}
-            >
-              <Image
-                src="/images/steel_brays_hero_product.png"
-                alt="Structural Steel"
-                fill
-                className="object-cover object-center scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
-              />
-              <div className="absolute inset-0 bg-slate/90" />
-            </div>
-
-            <AnimatedSection direction="up" delay={0.4} className="relative z-10 w-full max-w-lg">
-              <span className="text-slate-300 font-serif italic mb-6 block flex items-center gap-3 premium-tracking text-xs uppercase">
-                <HardHat className="w-5 h-5" /> {t.home.hero.div2}
-              </span>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-offwhite uppercase tracking-tight leading-[1.1] mb-8 text-shadow-premium">
-                {lang === 'ar' ? (
-                  <>الإنشاءات <br /> <span className="text-slate-400">الصناعية</span></>
-                ) : (
-                  <>Industrial <br /> <span className="text-slate-400">Construction</span></>
-                )}
-              </h2>
-              <p className="text-offwhite/70 font-normal text-base md:text-lg leading-relaxed mb-10 max-w-sm text-balance">
-                {t.home.hero.constructionDesc}
-              </p>
-              <Link
-                href="/construction"
-                className="inline-flex items-center space-x-3 text-offwhite hover:text-gold transition-all font-semibold text-xs tracking-[0.2em] uppercase group/link py-2 border-b border-white/10 hover:border-gold"
-              >
-                <span>{t.home.hero.exploreConstruction}</span>
-                <ArrowRight className={clsx("w-4 h-4 transform group-hover/link:translate-x-2 transition-transform", isRTL && "rotate-180")} />
-              </Link>
-            </AnimatedSection>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
 
-      {/* 2. AGRI-WHOLESALE SECTION */}
-      <section id="agri" className="py-32 md:py-48 bg-offwhite relative z-10 overflow-hidden">
-        <div className="container mx-auto px-6 md:px-12">
+      {/* 2. AGRI-WHOLESALE SECTION — orange division */}
+      <section id="agri" className="py-32 md:py-48 bg-background relative z-10 overflow-hidden">
+        {/* Diagonal two-tone + orange divider. The divider lands at 54% at the
+            section's bottom seam, where the Construction blue line meets it. */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-foreground/[0.03]"
+          style={{ clipPath: "polygon(0 0, 44% 0, 54% 100%, 0 100%)" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-accent-2/70"
+          style={{ clipPath: "polygon(44% 0, calc(44% + 1.5px) 0, calc(54% + 1.5px) 100%, 54% 100%)" }}
+        />
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
           <AnimatedSection direction="up" className="mb-20 md:mb-32">
-            <h2 className={clsx("text-4xl md:text-6xl font-serif font-bold text-forest uppercase tracking-tighter leading-none", isRTL && "text-start font-arabic")}>
+            <h2 className={clsx("text-4xl md:text-6xl font-serif font-bold text-foreground uppercase tracking-tighter leading-none", isRTL && "text-start font-arabic")}>
               {lang === 'ar' ? (
-                <>الزراعة <span className="text-gold italic font-normal font-sans">العالمية.</span></>
+                <>الزراعة <span className="text-accent-2 italic font-normal font-sans">العالمية.</span></>
               ) : (
-                <>Global <span className="text-gold italic font-normal">Agriculture.</span></>
+                <>Global <span className="text-accent-2 italic font-normal">Agriculture.</span></>
               )}
             </h2>
-            <p className="text-forest/60 max-w-2xl mt-8 text-lg md:text-xl font-normal leading-relaxed text-balance border-l border-gold pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
+            <p className="text-muted max-w-2xl mt-8 text-lg md:text-xl font-normal leading-relaxed text-balance border-l border-accent-2 pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
               {t.home.agri.desc}
             </p>
           </AnimatedSection>
@@ -168,37 +245,37 @@ export default function Home() {
                 fill
                 className="object-cover object-center transition-transform duration-[2000ms] group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06080b]/95 via-[#06080b]/20 to-transparent" />
               <div className="absolute bottom-0 left-0 p-12 w-full">
                 <div className="glass-morphism inline-flex p-3 rounded-full mb-6">
-                  <Wheat className="text-gold w-6 h-6" />
+                  <Wheat className="text-accent-2 w-6 h-6" />
                 </div>
-                <h3 className="text-3xl md:text-4xl font-serif font-bold text-offwhite mb-4">
+                <h3 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4">
                   {t.home.agri.grainExports.title}
                 </h3>
-                <p className="text-offwhite/70 font-normal text-base max-w-md leading-relaxed">
+                <p className="text-white/70 font-normal text-base max-w-md leading-relaxed">
                   {t.home.agri.grainExports.desc}
                 </p>
               </div>
             </StaggerItem>
 
             {/* Quality Testing (Text/Image Card) */}
-            <StaggerItem className="relative bg-forest text-offwhite rounded-sm overflow-hidden group shadow-premium">
+            <StaggerItem className="relative bg-[#06080b] text-white rounded-sm overflow-hidden group shadow-premium">
               <Image
                 src="/images/grain_surveyor_quality.png"
                 alt="Grain Quality Testing"
                 fill
                 className="object-cover object-center transition-all duration-[2000ms] group-hover:scale-105 opacity-80 group-hover:opacity-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest/95 via-forest/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06080b]/95 via-[#06080b]/40 to-transparent" />
               <div className="absolute inset-0 p-10 flex flex-col justify-end">
                 <div className="glass-morphism inline-flex p-3 rounded-full mb-auto self-start">
-                  <Droplets className="text-gold w-6 h-6" />
+                  <Droplets className="text-accent-2 w-6 h-6" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 z-10 text-offwhite tracking-tight">
+                <h3 className="text-2xl md:text-3xl font-serif font-bold mb-4 z-10 text-white tracking-tight">
                   {lang === 'ar' ? <>اختبارات <br /> الجودة</> : <>Surveyor <br /> Testing</>}
                 </h3>
-                <p className="text-offwhite/70 font-normal text-sm z-10 leading-relaxed">
+                <p className="text-white/70 font-normal text-sm z-10 leading-relaxed">
                   {t.home.agri.surveyorTesting.desc}
                 </p>
               </div>
@@ -212,12 +289,12 @@ export default function Home() {
                 fill
                 className="object-cover object-center transition-all duration-1000 group-hover:scale-105 opacity-90 group-hover:opacity-100"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest/90 via-forest/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06080b]/90 via-[#06080b]/30 to-transparent" />
               <div className="absolute bottom-0 left-0 p-8 w-full">
-                <h3 className="text-2xl font-serif font-bold text-offwhite mb-2">
+                <h3 className="text-2xl font-serif font-bold text-white mb-2">
                   {t.home.agri.logistics.title}
                 </h3>
-                <p className="text-offwhite/80 font-normal text-sm max-w-2xl">
+                <p className="text-white/80 font-normal text-sm max-w-2xl">
                   {t.home.agri.logistics.desc}
                 </p>
               </div>
@@ -226,32 +303,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. INDUSTRIAL CONSTRUCTION SECTION */}
+      {/* 3. INDUSTRIAL CONSTRUCTION SECTION — blue/teal division, cinematic dark band */}
       <section
         id="construction"
         ref={constructionRef}
-        className="py-32 md:py-48 bg-forest text-offwhite relative overflow-hidden"
+        className="py-32 md:py-48 bg-[#06080b] text-white relative overflow-hidden"
       >
-        {/* Decorative background element */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-slate/10 -skew-x-12 translate-x-1/4 z-0" />
+        {/* Diagonal two-tone + blue divider. Its top lands at 54% at the section's
+            top seam, meeting the Agriculture orange line at the same point. */}
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-white/[0.03]"
+          style={{ clipPath: "polygon(54% 0, 100% 0, 100% 100%, 44% 100%)" }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 z-0 bg-accent/70"
+          style={{ clipPath: "polygon(54% 0, calc(54% + 1.5px) 0, calc(44% + 1.5px) 100%, 44% 100%)" }}
+        />
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <AnimatedSection direction="up" className="mb-20 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-12">
             <div className="max-w-3xl">
-              <h2 className="text-5xl md:text-8xl font-serif font-bold text-offwhite uppercase tracking-tighter leading-none">
+              <h2 className="text-5xl md:text-8xl font-serif font-bold text-white uppercase tracking-tighter leading-none">
                 {lang === 'ar' ? (
-                  <>المواد <br /> <span className="text-slate-400 italic font-normal font-sans">الصناعية.</span></>
+                  <>المواد <br /> <span className="text-accent italic font-normal font-sans">الصناعية.</span></>
                 ) : (
-                  <>Industrial <br /> <span className="text-slate-400 italic font-normal">Materials.</span></>
+                  <>Industrial <br /> <span className="text-accent italic font-normal">Materials.</span></>
                 )}
               </h2>
-              <p className="text-offwhite/60 mt-8 text-xl font-normal leading-relaxed text-balance border-l border-slate-500 pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
+              <p className="text-white/60 mt-8 text-xl font-normal leading-relaxed text-balance border-l border-accent pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
                 {t.home.construction.desc}
               </p>
             </div>
             <Link
               href="/construction"
-              className="inline-flex items-center space-x-4 text-gold hover:text-offwhite transition-all font-bold tracking-[0.2em] uppercase border-2 border-gold/30 hover:border-offwhite px-10 py-5 rounded-full backdrop-blur-sm hover:bg-gold hover:text-forest shadow-premium group"
+              className="inline-flex items-center space-x-4 text-accent hover:text-white transition-all font-bold tracking-[0.2em] uppercase border-2 border-accent/40 hover:border-white px-10 py-5 rounded-full backdrop-blur-sm hover:bg-accent shadow-premium group"
             >
               <span>{t.common.viewDivision}</span>
               <ArrowRight className={clsx("w-5 h-5 group-hover:translate-x-2 transition-transform", isRTL && "rotate-180")} />
@@ -263,14 +348,14 @@ export default function Home() {
             {/* Left side text items */}
             <StaggerContainer className="flex flex-col gap-24">
               <Link href="/sulfur" className="flex flex-col gap-10 group/card">
-                <StaggerItem className="border-l-2 border-gold pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
-                  <span className="text-gold font-mono text-xs tracking-[0.3em] uppercase mb-4 block opacity-60 dir-ltr text-start" style={{ direction: 'ltr' }}>
+                <StaggerItem className="border-l-2 border-accent pl-8 rtl:border-l-0 rtl:border-r rtl:pl-0 rtl:pr-8">
+                  <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase mb-4 block opacity-70 dir-ltr text-start" style={{ direction: 'ltr' }}>
                     01
                   </span>
-                  <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight group-hover/card:text-gold transition-colors">
+                  <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight group-hover/card:text-accent transition-colors">
                     {t.home.construction.sulfur.title}
                   </h3>
-                  <p className="text-offwhite/50 font-normal text-lg leading-relaxed max-w-md">
+                  <p className="text-white/50 font-normal text-lg leading-relaxed max-w-md">
                     {t.home.construction.sulfur.desc}
                   </p>
                 </StaggerItem>
@@ -279,9 +364,10 @@ export default function Home() {
                     src="/images/granular_sulfur.jpg"
                     alt="Granular Sulfur"
                     fill
+                    unoptimized
                     className="object-cover object-center opacity-80 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-forest/40 group-hover:bg-transparent transition-colors duration-1000" />
+                  <div className="absolute inset-0 bg-[#06080b]/40 group-hover:bg-transparent transition-colors duration-1000" />
                   <div className="absolute inset-0 border border-white/5 pointer-events-none" />
                 </StaggerItem>
               </Link>
@@ -294,7 +380,7 @@ export default function Home() {
                   <h3 className="text-3xl md:text-4xl font-serif font-bold mb-4 tracking-tight text-white/90 group-hover/card:text-white transition-colors">
                     {t.home.construction.plywood.title}
                   </h3>
-                  <p className="text-offwhite/40 font-normal text-lg leading-relaxed max-w-md">
+                  <p className="text-white/40 font-normal text-lg leading-relaxed max-w-md">
                     {t.home.construction.plywood.desc}
                   </p>
                 </StaggerItem>
@@ -309,7 +395,7 @@ export default function Home() {
                       fill
                       className="object-cover object-center opacity-80 group-hover:opacity-100 transition-all duration-1000 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-forest/40 group-hover:bg-transparent transition-colors duration-1000" />
+                    <div className="absolute inset-0 bg-[#06080b]/40 group-hover:bg-transparent transition-colors duration-1000" />
                   </motion.div>
                 </StaggerItem>
               </Link>
@@ -327,20 +413,20 @@ export default function Home() {
                   fill
                   className="object-cover object-center opacity-80 group-hover:opacity-100 transition-all duration-[2000ms] group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-forest/30" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#06080b] via-transparent to-[#06080b]/30" />
               </motion.div>
 
               <div className="absolute bottom-16 left-0 right-0 px-12">
-                <span className="text-slate-400 font-mono text-xs tracking-[0.3em] uppercase mb-4 block dir-ltr text-start" style={{ direction: 'ltr' }}>
+                <span className="text-accent font-mono text-xs tracking-[0.3em] uppercase mb-4 block dir-ltr text-start" style={{ direction: 'ltr' }}>
                   03
                 </span>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-offwhite mb-6 leading-tight tracking-tighter">
+                <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight tracking-tighter">
                   {t.home.construction.steel.title}
                 </h3>
-                <p className="text-offwhite/60 font-normal text-lg max-w-sm leading-relaxed">
+                <p className="text-white/60 font-normal text-lg max-w-sm leading-relaxed">
                   {t.home.construction.steel.desc}
                 </p>
-                <div className="mt-10 h-1 w-20 bg-gold/50 group-hover/card:w-40 transition-all duration-700" />
+                <div className="mt-10 h-1 w-20 bg-accent/50 group-hover/card:w-40 transition-all duration-700" />
               </div>
             </Link>
           </div>

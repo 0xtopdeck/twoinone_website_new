@@ -10,7 +10,7 @@ export const translations = {
       allRightsReserved: "All rights reserved.",
       privacy: "Privacy",
       terms: "Terms",
-      copyright: "© 2026 Black Rock And Yellow Sands International LLC.",
+      copyright: "© 2026 Two in One LLC. All rights reserved.",
       supplyChain: "Supply Chain",
       globalOps: "Global Operations",
       globalLogistics: "Global Logistics",
@@ -141,7 +141,7 @@ export const translations = {
       },
       content: {
         whoWeAreTitle: "Who We Are.",
-        p1: "Black Rock And Yellow Sands International is a premier wholesale supplier operating at the nexus of global trade. We deliver materials of exceptional quality, meeting strict purity thresholds and ISO standards, concerning emissions standards in our products.",
+        p1: "Two in One LLC is a premier wholesale supplier operating at the nexus of global trade. We deliver materials of exceptional quality, meeting strict purity thresholds and ISO standards, concerning emissions standards in our products.",
         p2: "Our core focus and primary operational division is dedicated to Agricultural Commodities, leading with high-quality global wheat distribution. This is followed by our specialized Granular Sulfur division powering fertilizer manufacturing, alongside our heavy Construction Steel and industrial-grade Plywood divisions.",
         p3: "As our products fuel critical manufacturing lines and large-scale development projects, where quality is non-negotiable. Every shipment is rigorously analyzed, tested, and certified by internationally recognized surveyors like SGS, Bureau Veritas, and Intertek.",
         p4: "We guarantee the integrity of our supply chains from origin to destination. Our commodities and materials are delivered efficiently via a modern vessel fleet, featuring reliable maritime equipment and operated by highly trained, professional staff members.",
@@ -220,7 +220,7 @@ export const translations = {
       },
     },
     footer: {
-      tagline: '"Black Rock And Yellow Sands International LLC. Setting the global standard in high-purity agricultural commodities and structural industrial materials."',
+      tagline: '"Two in One Limited Liability Company. Two disciplines, one standard - high-quality agricultural commodities and industrial construction materials."',
       communication: "Communication",
       primaryEmail: "Primary Email",
       directLine: "Direct Line",
@@ -240,7 +240,7 @@ export const translations = {
       allRightsReserved: "جميع الحقوق محفوظة.",
       privacy: "الخصوصية",
       terms: "الشروط",
-      copyright: "© 2026 شركة بلاك روك آند يلو ساندز إنترناشيونال ش.م.م.",
+      copyright: "© 2026 شركة اثنين في واحد ش.م.م. جميع الحقوق محفوظة.",
       supplyChain: "سلسلة التوريد",
       globalOps: "العمليات العالمية",
       globalLogistics: "الخدمات اللوجستية العالمية",
@@ -371,7 +371,7 @@ export const translations = {
       },
       content: {
         whoWeAreTitle: "من نحن.",
-        p1: "شركة بلاك روك آند يلو ساندز إنترناشيونال هي مورد بالجملة رائد يعمل في جوهر التجارة العالمية. نحن نقدم مواد ذات جودة استثنائية، تلبي عتبات النقاء الصارمة ومعايير ISO، مع مراعاة معايير الانبعاثات في منتجاتنا.",
+        p1: "شركة اثنين في واحد ش.م.م هي مورد بالجملة رائد يعمل في جوهر التجارة العالمية. نحن نقدم مواد ذات جودة استثنائية، تلبي عتبات النقاء الصارمة ومعايير ISO، مع مراعاة معايير الانبعاثات في منتجاتنا.",
         p2: "ينصب تركيزنا الأساسي وقسمنا التشغيلي الرئيسي على السلع الزراعية، الرائدة في توزيع القمح العالمي عالي الجودة. ويتبع ذلك قسم الكبريت المحبب المتخصص الذي يدعم تصنيع الأسمدة، إلى جانب أقسام فولاذ البناء الثقيل والخشب الرقائقي الصناعي.",
         p3: "بما أن منتجاتنا تغذي خطوط التصنيع الحرجة ومشاريع التطوير واسعة النطاق، فإن الجودة غير قابلة للتفاوض. يتم تحليل كل شحنة واختبارها واعتمادها بدقة من قبل فاحصين معترف بهم دولياً مثل SGS وBureau Veritas وIntertek.",
         p4: "نحن نضمن سلامة سلاسل التوريد الخاصة بنا من المنشأ إلى الوجهة. يتم تسليم سلعنا وموادنا بكفاءة عبر أسطول سفن حديث، يتميز بمعدات بحرية موثوقة ويديره طاقم محترف مدرب تدريباً عالياً.",
@@ -450,7 +450,7 @@ export const translations = {
       },
     },
     footer: {
-      tagline: '"شركة بلاك روك آند يلو ساندز إنترناشيونال ش.م.م. نضع المعيار العالمي في السلع الزراعية عالية النقاء والمواد الصناعية الهيكلية."',
+      tagline: '"اثنين في واحد، شركة ذات مسؤولية محدودة. تخصصان، معيار واحد - سلع زراعية عالية الجودة ومواد إنشاءات صناعية."',
       communication: "التواصل",
       primaryEmail: "البريد الإلكتروني الأساسي",
       directLine: "الخط المباشر",

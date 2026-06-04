@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter, Cairo } from "next/font/google";
+import { Fraunces, Inter, Cairo, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import { LanguageProvider } from "@/components/LanguageContext";
+import { ThemeProvider } from "@/components/ThemeContext";
 
 const fraunces = Fraunces({
   variable: "--font-fraunces",
@@ -24,10 +25,20 @@ const cairo = Cairo({
   display: "swap",
 });
 
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Black Rock And Yellow Sands International",
-  description: "Enterprise operating in Agricultural Wholesale and Industrial Construction.",
+  title: "Two in One LLC",
+  description:
+    "Agricultural wholesale and industrial construction - sourced, surveyed, and delivered with sovereign-grade precision.",
 };
+
+// Applies the saved theme before first paint to avoid a flash of the wrong theme.
+const themeScript = `(function(){try{var t=localStorage.getItem('preferred-theme');var d=document.documentElement;if(t==='light'){d.classList.remove('dark');d.classList.add('light');d.style.colorScheme='light';}else{d.classList.add('dark');d.style.colorScheme='dark';}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -35,16 +46,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth overflow-x-hidden">
-      <body className={`${inter.variable} ${fraunces.variable} ${cairo.variable} antialiased bg-offwhite text-forest selection:bg-gold/30 selection:text-forest flex flex-col min-h-screen font-sans overflow-x-hidden relative`}>
-        <LanguageProvider>
-          <Navbar />
-          <main className="flex-1 w-full">
-            {children}
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </LanguageProvider>
+    <html lang="en" className="dark scroll-smooth overflow-x-clip" suppressHydrationWarning>
+      <body className={`${inter.variable} ${fraunces.variable} ${cairo.variable} ${geistMono.variable} antialiased bg-background text-foreground selection:bg-accent/30 selection:text-foreground flex flex-col min-h-screen font-sans overflow-x-clip relative`}>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <ThemeProvider>
+          <LanguageProvider>
+            <Navbar />
+            <main className="flex-1 w-full">
+              {children}
+            </main>
+            <Footer />
+            <ScrollToTop />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

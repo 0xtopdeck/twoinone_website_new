@@ -1,12 +1,14 @@
 export const COMPANY = {
-  name: "Black Rock And Yellow Sands International",
-  shortName: "BRAY",
-  tagline: "High-End Industrial Precision",
-  email: "business@braysint.com",
-  phone: "+96892019971",
-  address: "Sultanate of Oman, Muscat, Sidab 1/286/1",
-  cr: "1476668",
-  vat: "OM1100344023",
+  name: "Two in One LLC",
+  shortName: "TWO IN ONE",
+  tagline: "Two Disciplines. One Standard.",
+  email: "business@twoinone.llc",
+  phone: "+96891221958",
+  address: {
+    en: "As Sinayat Al Qadima / Salalah / Dhofar Governorate",
+    ar: "الصناعيات القديمة / صلالة / محافظة ظفار",
+  },
+  cr: "1201497",
   divisions: [
     {
       name: "Agriculture",

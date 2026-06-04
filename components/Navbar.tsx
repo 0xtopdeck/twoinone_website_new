@@ -3,20 +3,20 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { COMPANY } from "@/lib/siteData";
-import { Menu, X, ArrowRight, Languages } from "lucide-react";
+import { Menu, X, ArrowRight, Languages, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 import { useLanguage } from "./LanguageContext";
+import { useTheme } from "./ThemeContext";
+import EmblemMark from "./EmblemMark";
 import { translations } from "@/lib/translations";
-
-import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, isRTL } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const t = translations[lang];
 
   const DIVISIONS = [
@@ -51,47 +51,42 @@ export default function Navbar() {
 
   return (
     <>
-      <header
+      <motion.header
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className={clsx(
-          "z-50 transition-all duration-500",
+          "z-50 transition-all duration-500 text-foreground",
           "md:fixed md:top-0 md:left-0 md:right-0",
           "sticky top-0",
           isScrolled
-            ? "bg-forest/80 backdrop-blur-xl shadow-premium py-2 text-offwhite border-b border-white/5"
-            : "bg-forest/60 backdrop-blur-lg py-4 text-offwhite md:bg-forest/30 md:backdrop-blur-sm shadow-sm"
+            ? "bg-background/80 backdrop-blur-xl shadow-premium py-2 border-b border-line"
+            : "bg-background/60 backdrop-blur-lg py-4 md:bg-background/30 md:backdrop-blur-sm shadow-sm"
         )}
       >
         <div className="container mx-auto px-6 md:px-12 flex justify-between md:flex-row items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group gap-3 justify-self-start -ml-2">
-            <div className="relative h-12 w-12 filter drop-shadow-md">
-              <Image
-                src="/images/braysint-logo-large.png"
-                alt="BRAY International Logo"
-                fill
-                className="object-contain object-left transition-transform duration-500 group-hover:scale-105"
-                priority
-              />
-            </div>
-            <div className={clsx("flex flex-col", isRTL ? "pr-0" : "pl-0")}>
-              <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.1em] leading-tight text-white/95 whitespace-nowrap uppercase">
-                {lang === 'ar' ? "بلاك روك آند يلو ساندز" : "Black Rock And Yellow Sands"}
+            <EmblemMark size="h-11 w-11" />
+            <div className="flex flex-col">
+              <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.1em] leading-tight text-foreground whitespace-nowrap uppercase">
+                {lang === 'ar' ? "اثنين في واحد" : "Two in One"}
               </span>
-              <span className="text-[10px] premium-tracking text-gold uppercase mt-1">
-                {lang === 'ar' ? "إنترناشيونال" : "International"}
+              <span className="text-[10px] premium-tracking text-accent uppercase mt-1">
+                {lang === 'ar' ? "ش.م.م" : "LLC"}
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav 
-            className="hidden md:flex items-center gap-1 bg-white/5 backdrop-blur-md p-1.5 rounded-full border border-white/10 mx-auto shadow-inner"
+          <nav
+            className="hidden md:flex items-center gap-1 bg-foreground/5 backdrop-blur-md p-1.5 rounded-full border border-line mx-auto shadow-inner"
             onMouseLeave={() => setHoveredKey(null)}
           >
-            {DIVISIONS.map((div) => {
+            {DIVISIONS.filter((div) => div.key !== "Contact").map((div) => {
               const isActive = activeKey === div.key;
               const isHovered = hoveredKey === div.key;
-              
+
               return (
                 <Link
                   key={div.key}
@@ -99,7 +94,7 @@ export default function Navbar() {
                   onMouseEnter={() => setHoveredKey(div.key)}
                   className={clsx(
                     "relative px-6 py-2 rounded-full text-xs font-semibold premium-tracking transition-all duration-300 uppercase",
-                    isActive ? "text-forest" : "text-offwhite/80 hover:text-offwhite"
+                    isActive ? "text-background" : "text-foreground/70 hover:text-foreground"
                   )}
                 >
                   {(isActive || isHovered) && (
@@ -107,7 +102,7 @@ export default function Navbar() {
                       layoutId="nav-pill"
                       className={clsx(
                         "absolute inset-0 rounded-full -z-10 shadow-lg",
-                        isActive ? "bg-gold" : "bg-white/10"
+                        isActive ? "bg-accent" : "bg-foreground/10"
                       )}
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
@@ -116,13 +111,13 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            
+
             <Link
               href="/contact"
               onMouseEnter={() => setHoveredKey("Contact")}
               className={clsx(
                 "relative px-6 py-2 rounded-full text-xs font-semibold premium-tracking transition-all duration-300 ml-1 uppercase",
-                activeKey === "Contact" ? "text-forest" : "text-gold hover:text-gold"
+                activeKey === "Contact" ? "text-background" : "text-accent hover:text-accent"
               )}
             >
               {(activeKey === "Contact" || hoveredKey === "Contact") && (
@@ -130,7 +125,7 @@ export default function Navbar() {
                   layoutId="nav-pill"
                   className={clsx(
                     "absolute inset-0 rounded-full -z-10 shadow-lg",
-                    activeKey === "Contact" ? "bg-gold" : "bg-white/10"
+                    activeKey === "Contact" ? "bg-accent" : "bg-foreground/10"
                   )}
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
@@ -139,12 +134,21 @@ export default function Navbar() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground/5 border border-line text-foreground hover:bg-accent hover:text-background transition-all"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
             {/* Desktop Language Toggle */}
             <div className="hidden md:block">
               <button
                 onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase premium-tracking hover:bg-gold hover:text-forest transition-all"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/5 border border-line text-foreground text-[10px] font-bold uppercase premium-tracking hover:bg-accent hover:text-background transition-all"
               >
                 <Languages className="w-3.5 h-3.5" />
                 <span>{lang === "en" ? "عربي" : "EN"}</span>
@@ -153,7 +157,7 @@ export default function Navbar() {
 
             {/* Mobile menu button */}
             <button
-              className="md:hidden flex items-center justify-center p-2.5 bg-white/10 text-white rounded-full transition-all hover:bg-gold hover:text-forest relative z-[60] border border-white/10"
+              className="md:hidden flex items-center justify-center p-2.5 bg-foreground/10 text-foreground rounded-full transition-all hover:bg-accent hover:text-background relative z-[60] border border-line"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -161,7 +165,7 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -171,42 +175,43 @@ export default function Navbar() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-forest/98 backdrop-blur-3xl text-offwhite z-[9999] p-6 flex flex-col"
+            className="fixed inset-0 bg-background/98 backdrop-blur-3xl text-foreground z-[9999] p-6 flex flex-col"
           >
-            <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/10">
-              <div className="flex items-center gap-4">
-                <div className="relative h-10 w-10">
-                  <Image
-                    src="/images/braysint-logo-large.png"
-                    alt="BRAY International Logo"
-                    fill
-                    className="object-contain"
-                  />
-                </div>
+            <div className="flex justify-between items-center mb-6 pb-4 border-b border-line">
+              <div className="flex items-center gap-4 group">
+                <EmblemMark size="h-10 w-10" />
                 {/* Mobile Language Toggle */}
                 <button
                   onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-bold uppercase premium-tracking hover:bg-gold hover:text-forest transition-all"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-foreground/10 border border-line text-[10px] font-bold uppercase premium-tracking hover:bg-accent hover:text-background transition-all"
                 >
                   <Languages className="w-3.5 h-3.5" />
                   <span>{lang === "en" ? "عربي" : "EN"}</span>
                 </button>
+                {/* Mobile Theme Toggle */}
+                <button
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  className="flex items-center justify-center w-9 h-9 rounded-full bg-foreground/10 border border-line hover:bg-accent hover:text-background transition-all"
+                >
+                  {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                </button>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="p-3 hover:bg-white/10 rounded-full transition-colors border border-white/20"
+                className="p-3 hover:bg-foreground/10 rounded-full transition-colors border border-line"
                 aria-label="Close menu"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
-            
+
             <div className="flex flex-col flex-1">
               <div className="mb-8">
                 <Link
                   href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full py-4 bg-gold text-forest font-black tracking-[0.2em] text-[10px] rounded-sm hover:bg-offwhite transition-all uppercase flex items-center justify-center gap-2 shadow-2xl"
+                  className="w-full py-4 bg-accent text-background font-black tracking-[0.2em] text-[10px] rounded-sm hover:opacity-90 transition-all uppercase flex items-center justify-center gap-2 shadow-2xl"
                 >
                   <span>{t.common.requestAQuote}</span>
                   <ArrowRight className={clsx("w-3 h-3", isRTL && "rotate-180")} />
@@ -214,7 +219,7 @@ export default function Navbar() {
               </div>
 
               <div className="flex flex-col gap-1 text-start">
-                <h4 className="text-[10px] uppercase tracking-[0.3em] text-gold/60 font-bold mb-4 font-serif italic">
+                <h4 className="text-[10px] uppercase tracking-[0.3em] text-accent/60 font-bold mb-4 font-serif italic">
                   {t.common.navigation}
                 </h4>
                 {DIVISIONS.map((div) => (
@@ -222,16 +227,16 @@ export default function Navbar() {
                     key={div.key}
                     href={div.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="py-3.5 flex justify-between items-center group border-b border-white/5 last:border-0"
+                    className="py-3.5 flex justify-between items-center group border-b border-line last:border-0"
                   >
                     <span className={clsx(
-                      "text-lg font-serif transition-colors", 
-                      activeKey === div.key ? "text-gold" : "text-white group-hover:text-gold"
+                      "text-lg font-serif transition-colors",
+                      activeKey === div.key ? "text-accent" : "text-foreground group-hover:text-accent"
                     )}>
                       {div.name}
                     </span>
                     <ArrowRight className={clsx(
-                      "w-4 h-4 transition-all text-gold",
+                      "w-4 h-4 transition-all text-accent",
                       isRTL && "rotate-180",
                       activeKey === div.key ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"
                     )} />
@@ -239,9 +244,9 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <div className="mt-auto pt-8 text-[10px] uppercase tracking-[0.3em] text-white/30 font-medium">
+              <div className="mt-auto pt-8 text-[10px] uppercase tracking-[0.3em] text-muted font-medium">
                 <p>{t.common.copyright}</p>
-                <p className="mt-1 text-gold/40">{t.footer.tagline.slice(1, 40)}...</p>
+                <p className="mt-1 text-accent/50">{t.footer.tagline.slice(1, 40)}...</p>
               </div>
             </div>
           </motion.div>

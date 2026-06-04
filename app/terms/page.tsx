@@ -4,19 +4,19 @@ import { COMPANY } from "@/lib/siteData";
 
 export default function TermsOfServicePage() {
   return (
-    <div className="bg-offwhite min-h-screen pt-32 pb-24">
-      <div className="container mx-auto px-4 md:px-8 max-w-4xl text-forest">
-        <h1 className="text-4xl md:text-5xl font-serif font-bold uppercase tracking-tighter mb-8 bg-forest text-offwhite py-6 px-8 rounded-sm">
-          Terms of <span className="text-gold italic font-normal">Service.</span>
+    <div className="bg-background min-h-screen pt-32 pb-24">
+      <div className="container mx-auto px-4 md:px-8 max-w-4xl text-foreground">
+        <h1 className="text-4xl md:text-5xl font-serif font-bold uppercase tracking-tighter mb-8 bg-surface text-foreground py-6 px-8 rounded-sm">
+          Terms of <span className="text-accent italic font-normal">Service.</span>
         </h1>
 
-        <div className="space-y-8 font-normal leading-relaxed text-forest/80 text-lg text-balance">
+        <div className="space-y-8 font-normal leading-relaxed text-muted text-lg text-balance">
           <p>
             <strong>Last Updated:</strong> {new Date().toLocaleDateString()}
           </p>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               1. Acceptance of Terms
             </h2>
             <p className="mb-4">
@@ -28,7 +28,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               2. Commercial Inquiries & Quotes
             </h2>
             <p className="mb-4">
@@ -42,7 +42,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               3. Compliance & Quality Assurance
             </h2>
             <p className="mb-4">
@@ -55,7 +55,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-serif font-bold text-forest mb-4">
+            <h2 className="text-2xl font-serif font-bold text-foreground mb-4">
               4. Governing Law
             </h2>
             <p className="mb-4">

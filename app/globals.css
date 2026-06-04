@@ -1,26 +1,74 @@
 @import "tailwindcss";
 
+/* Class-based light/dark: <html class="dark"> or <html class="light"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---- Static design tokens ---- */
 @theme {
-  --color-forest: #0F1A12; /* Midnight Forest */
-  --color-gold: #D4AF37;   /* Champagne Gold */
-  --color-slate: #333644;  /* Deep Slate */
-  --color-offwhite: #FDFDFD;
-  
+  /* Brand constants (do not change with theme) */
+  --color-brand-teal: #033d61;
+  --color-brand-teal-bright: #2eb6d8;
+  --color-brand-orange: #f1701f;
+
+  /* Legacy palette — kept so any not-yet-migrated section still renders */
+  --color-forest: #0f1a12;
+  --color-gold: #d4af37;
+  --color-slate: #333644;
+  --color-offwhite: #fdfdfd;
+
   --font-sans: var(--font-inter);
   --font-serif: var(--font-fraunces);
   --font-arabic: var(--font-cairo);
+  --font-mono: var(--font-geist-mono);
 
   --shadow-premium: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ---- Semantic tokens wired to runtime theme variables ---- */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+}
+
+/* ---- Theme variable values ---- */
+:root,
+.light {
+  --background: #f5f7fa;
+  --surface: #ffffff;
+  --surface-2: #eaeff4;
+  --foreground: #0a1620;
+  --muted: #5a6b78;
+  --line: rgba(3, 61, 97, 0.14);
+  --accent: #0b5b7e; /* deep brand teal, readable on light */
+  --accent-2: #d9600f; /* brand orange, slightly deepened */
+  --planet-glow: rgba(11, 91, 126, 0.1);
+}
+
+.dark {
+  --background: #06080b; /* space black */
+  --surface: #0b1117;
+  --surface-2: #121b24;
+  --foreground: #e8eef2;
+  --muted: #8aa0b0;
+  --line: rgba(255, 255, 255, 0.09);
+  --accent: #2eb6d8; /* luminous teal */
+  --accent-2: #f1701f; /* brand orange */
+  --planet-glow: rgba(46, 182, 216, 0.1);
 }
 
 @layer base {
   body {
-    @apply bg-offwhite text-forest font-sans antialiased;
+    @apply bg-background text-foreground font-sans antialiased;
     letter-spacing: -0.01em;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
-  
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
     letter-spacing: -0.02em;
@@ -32,22 +80,33 @@
   .text-balance {
     text-wrap: balance;
   }
-  
+
   .premium-tracking {
     letter-spacing: 0.15em;
   }
 
   .glass-card {
-    background: var(--glass-bg);
+    background: color-mix(in srgb, var(--surface) 72%, transparent);
     backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--line);
   }
 
   .glass-morphism {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+    background: color-mix(in srgb, var(--foreground) 6%, transparent);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
   }
 
   .text-shadow-premium {
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   }
+}
+
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-caret {
+  animation: caret-blink 1.05s steps(1) infinite;
 }
