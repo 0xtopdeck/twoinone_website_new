@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center group gap-4 mb-8 -ml-2">
-              <EmblemMark size="h-12 w-12" />
+              <EmblemMark size="h-[60px] w-[60px]" />
               <div className="flex flex-col">
                 <span className="font-serif font-bold text-lg tracking-tight leading-none text-foreground uppercase">
                   {lang === 'ar' ? "اثنين في واحد" : "Two in One"}
