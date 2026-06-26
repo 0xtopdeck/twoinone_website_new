@@ -135,6 +135,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/services"
+                  className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
+                >
+                  {lang === 'ar' ? "الخدمات والقدرات" : "Services & Capabilities"}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/events"
                   className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
                 >

@@ -24,6 +24,7 @@ export default function Navbar() {
     { name: t.nav.construction, href: "/construction", key: "Construction" },
     { name: t.nav.sulfur, href: "/sulfur", key: "Sulfur" },
     { name: t.nav.food, href: "/food", key: "Food" },
+    { name: t.nav.services, href: "/services", key: "Services" },
     { name: t.nav.events, href: "/events", key: "Events" },
     { name: t.nav.about, href: "/about", key: "About" },
     { name: t.nav.careers, href: "/careers", key: "Careers" },
@@ -45,6 +46,7 @@ export default function Navbar() {
     if (pathname === "/construction") return "Construction";
     if (pathname === "/sulfur") return "Sulfur";
     if (pathname === "/food") return "Food";
+    if (pathname === "/services") return "Services";
     if (pathname === "/events") return "Events";
     if (pathname === "/agriculture") return "Agriculture";
     return "";
