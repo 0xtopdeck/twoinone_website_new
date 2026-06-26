@@ -111,6 +111,16 @@ export default function AboutPage() {
                       {lang === 'ar' ? "اثنين في واحد ش.م.م" : "Two in One LLC"}
                     </strong> {lang === 'ar' ? "هي مورد بالجملة رائد يعمل في جوهر التجارة العالمية. نحن نقدم مواد ذات جودة استثنائية، تلبي عتبات النقاء الصارمة ومعايير ISO، مع مراعاة معايير الانبعاثات في منتجاتنا." : "is a premier wholesale supplier operating at the nexus of global trade. We deliver materials of exceptional quality, meeting strict purity thresholds and ISO standards, concerning emissions standards in our products."}
                   </p>
+
+                  <div className="border-s-2 border-accent ps-6 py-2 my-2">
+                    <span className={clsx("block text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-2", isRTL && "font-arabic")}>
+                      {lang === 'ar' ? "تأسست عام 2014" : "Established 2014"}
+                    </span>
+                    <p className={clsx(isRTL && "font-arabic")}>
+                      {t.about.content.heritage}
+                    </p>
+                  </div>
+
                   <p>
                     {t.about.content.p2}
                   </p>

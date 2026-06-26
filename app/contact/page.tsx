@@ -236,6 +236,8 @@ export default function ContactPage() {
                       <option value="agriculture">{t.nav.agriculture}</option>
                       <option value="construction">{t.nav.construction}</option>
                       <option value="sulfur">{t.nav.sulfur}</option>
+                      <option value="food">{t.nav.food}</option>
+                      <option value="events">{t.nav.events}</option>
                       <option value="other">{t.common.explore}</option>
                     </select>
                   </div>

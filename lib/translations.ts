@@ -20,6 +20,8 @@ export const translations = {
       agriculture: "Agriculture",
       construction: "Construction",
       sulfur: "Sulfur",
+      food: "Food",
+      events: "Events",
       about: "About",
       careers: "Careers",
     },
@@ -142,6 +144,7 @@ export const translations = {
       content: {
         whoWeAreTitle: "Who We Are.",
         p1: "Two in One LLC is a premier wholesale supplier operating at the nexus of global trade. We deliver materials of exceptional quality, meeting strict purity thresholds and ISO standards, concerning emissions standards in our products.",
+        heritage: "Established in 2014, Two in One LLC began its journey primarily in the Oil and Gas sector. Over the years, we have steadily expanded our capabilities into agriculture, industrial construction, food import and export, and corporate event organizing - building a diversified group held to a single uncompromising standard across every line of business.",
         p2: "Our core focus and primary operational division is dedicated to Agricultural Commodities, leading with high-quality global wheat distribution. This is followed by our specialized Granular Sulfur division powering fertilizer manufacturing, alongside our heavy Construction Steel and industrial-grade Plywood divisions.",
         p3: "As our products fuel critical manufacturing lines and large-scale development projects, where quality is non-negotiable. Every shipment is rigorously analyzed, tested, and certified by internationally recognized surveyors like SGS, Bureau Veritas, and Intertek.",
         p4: "We guarantee the integrity of our supply chains from origin to destination. Our commodities and materials are delivered efficiently via a modern vessel fleet, featuring reliable maritime equipment and operated by highly trained, professional staff members.",
@@ -250,6 +253,8 @@ export const translations = {
       agriculture: "الزراعة",
       construction: "الإنشاءات",
       sulfur: "الكبريت",
+      food: "الغذاء",
+      events: "الفعاليات",
       about: "عن الشركة",
       careers: "الوظائف",
     },
@@ -372,6 +377,7 @@ export const translations = {
       content: {
         whoWeAreTitle: "من نحن.",
         p1: "شركة اثنين في واحد ش.م.م هي مورد بالجملة رائد يعمل في جوهر التجارة العالمية. نحن نقدم مواد ذات جودة استثنائية، تلبي عتبات النقاء الصارمة ومعايير ISO، مع مراعاة معايير الانبعاثات في منتجاتنا.",
+        heritage: "تأسست شركة اثنين في واحد ش.م.م في عام 2014، وبدأت رحلتها في قطاع النفط والغاز بشكل أساسي. ومنذ ذلك الحين، توسعنا تدريجياً في الزراعة، والإنشاءات الصناعية، واستيراد وتصدير المنتجات الغذائية، وتنظيم فعاليات الشركات - لنبني مجموعة متنوعة الأنشطة تخضع جميعها لمعيار واحد لا يتزحزح في كل خط من خطوط أعمالنا.",
         p2: "ينصب تركيزنا الأساسي وقسمنا التشغيلي الرئيسي على السلع الزراعية، الرائدة في توزيع القمح العالمي عالي الجودة. ويتبع ذلك قسم الكبريت المحبب المتخصص الذي يدعم تصنيع الأسمدة، إلى جانب أقسام فولاذ البناء الثقيل والخشب الرقائقي الصناعي.",
         p3: "بما أن منتجاتنا تغذي خطوط التصنيع الحرجة ومشاريع التطوير واسعة النطاق، فإن الجودة غير قابلة للتفاوض. يتم تحليل كل شحنة واختبارها واعتمادها بدقة من قبل فاحصين معترف بهم دولياً مثل SGS وBureau Veritas وIntertek.",
         p4: "نحن نضمن سلامة سلاسل التوريد الخاصة بنا من المنشأ إلى الوجهة. يتم تسليم سلعنا وموادنا بكفاءة عبر أسطول سفن حديث، يتميز بمعدات بحرية موثوقة ويديره طاقم محترف مدرب تدريباً عالياً.",

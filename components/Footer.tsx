@@ -103,6 +103,22 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/food"
+                  className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
+                >
+                  {lang === 'ar' ? "تجارة الغذاء" : "Food Wholesale"}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/events"
+                  className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
+                >
+                  {lang === 'ar' ? "تنظيم الفعاليات" : "Event Organizing"}
+                </Link>
+              </li>
               <li className="pt-4">
                 <Link
                   href="/contact"
