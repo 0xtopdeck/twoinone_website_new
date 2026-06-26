@@ -4,6 +4,7 @@ export const COMPANY = {
   tagline: "Two Disciplines. One Standard.",
   email: "business@twoinone.llc",
   phone: "+96891221958",
+  whatsapp: "+9689303080",
   address: {
     en: "As Sinayat Al Qadima / Salalah / Dhofar Governorate",
     ar: "الصناعيات القديمة / صلالة / محافظة ظفار",

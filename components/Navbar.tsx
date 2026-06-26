@@ -71,7 +71,7 @@ export default function Navbar() {
         <div className="container mx-auto px-6 md:px-12 flex justify-between md:flex-row items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group gap-3 justify-self-start -ml-2">
-            <EmblemMark size="h-[55px] w-[55px]" />
+            <EmblemMark size="h-[69px] w-[69px]" />
             <div className="flex flex-col">
               <span className="font-serif font-bold text-xs sm:text-sm tracking-[0.1em] leading-tight text-foreground whitespace-nowrap uppercase">
                 {lang === 'ar' ? "اثنين في واحد" : "Two in One"}
@@ -183,7 +183,7 @@ export default function Navbar() {
           >
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-line">
               <div className="flex items-center gap-4 group">
-                <EmblemMark size="h-[50px] w-[50px]" />
+                <EmblemMark size="h-[63px] w-[63px]" />
                 {/* Mobile Language Toggle */}
                 <button
                   onClick={() => setLang(lang === "en" ? "ar" : "en")}
