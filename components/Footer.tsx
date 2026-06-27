@@ -82,14 +82,14 @@ export default function Footer() {
                 <span className="block text-[10px] uppercase tracking-[0.2em] text-muted font-serif italic mb-2">
                   {t.footer.whatsapp}
                 </span>
-                <div className="flex flex-col gap-1.5">
+                <div className="flex flex-col gap-1.5 items-start">
                   {COMPANY.whatsapp.map((num) => (
                     <a
                       key={num}
                       href={`https://wa.me/${num.replace(/[^0-9]/g, "")}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={clsx("inline-flex items-center gap-2 hover:text-accent transition-colors text-foreground font-semibold text-xs tracking-wide dir-ltr", isRTL ? "flex-row-reverse self-end" : "self-start")}
+                      className={clsx("inline-flex items-center gap-2 hover:text-accent transition-colors text-foreground font-semibold text-xs tracking-wide dir-ltr", isRTL && "flex-row-reverse")}
                       style={{ direction: 'ltr' }}
                       aria-label={`Chat on WhatsApp ${num}`}
                     >
