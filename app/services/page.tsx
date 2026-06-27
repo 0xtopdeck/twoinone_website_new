@@ -23,7 +23,6 @@ import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
 import clsx from "clsx";
 
 const HERO_IMG = "/images/Construction_project_HERO.png";
-const RESIDENTIAL_BANNER_IMG = "/images/two_in_one_residential_construction.png";
 
 export default function ServicesPage() {
   const { lang, isRTL } = useLanguage();
@@ -352,20 +351,6 @@ export default function ServicesPage() {
             </div>
           </section>
 
-            {/* Residential maintenance/renovation/expansion banner, right after Construction & Infrastructure */}
-            {c.key === "construction" && (
-              <section className="relative w-full overflow-hidden bg-[#06080b]">
-                <div className="relative w-full aspect-[1000/377] max-h-[460px]">
-                  <Image
-                    src={RESIDENTIAL_BANNER_IMG}
-                    alt={ar ? "صيانة وتجديد وتوسعة المباني السكنية" : "Residential maintenance, renovation, and expansion"}
-                    fill
-                    sizes="100vw"
-                    className="object-cover object-center"
-                  />
-                </div>
-              </section>
-            )}
           </Fragment>
         );
       })}
