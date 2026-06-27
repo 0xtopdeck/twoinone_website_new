@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import {
   AnimatedSection,
   StaggerContainer,
@@ -22,8 +22,8 @@ import { translations } from "@/lib/translations";
 import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
 import clsx from "clsx";
 
-// Hero placeholder until a dedicated services hero is generated.
-const HERO_IMG = "/images/steel_brays_hero_product.png";
+const HERO_IMG = "/images/Construction_project_HERO.png";
+const RESIDENTIAL_BANNER_IMG = "/images/two_in_one_residential_construction.png";
 
 export default function ServicesPage() {
   const { lang, isRTL } = useLanguage();
@@ -36,6 +36,7 @@ export default function ServicesPage() {
       key: "construction",
       roman: "I",
       icon: HardHat,
+      image: "/images/Construction_cables_park.png",
       label: ar ? "القدرة الأولى" : "Capability I",
       title: ar ? "البناء والبنية التحتية" : "Construction & Infrastructure",
       lead: ar
@@ -57,6 +58,7 @@ export default function ServicesPage() {
       key: "facilities",
       roman: "II",
       icon: Sparkles,
+      image: "/images/Facility_management.png",
       label: ar ? "القدرة الثانية" : "Capability II",
       title: ar ? "إدارة المرافق" : "Facilities Management",
       lead: ar
@@ -76,6 +78,7 @@ export default function ServicesPage() {
       key: "smart",
       roman: "III",
       icon: Cpu,
+      image: "/images/Smart_systems_security.png",
       label: ar ? "القدرة الثالثة" : "Capability III",
       title: ar ? "الأنظمة الذكية والأمن" : "Smart Systems & Security",
       lead: ar
@@ -95,6 +98,7 @@ export default function ServicesPage() {
       key: "trading",
       roman: "IV",
       icon: Truck,
+      image: "/images/Trading_and_distribution.png",
       label: ar ? "القدرة الرابعة" : "Capability IV",
       title: ar ? "التجارة والتوزيع" : "Trading & Distribution",
       lead: ar
@@ -282,33 +286,39 @@ export default function ServicesPage() {
       {capabilities.map((c, idx) => {
         const Icon = c.icon;
         const flipped = idx % 2 === 1; // alternate sides
-        // TODO: when section hero images exist at /images/services-{key}.png, replace the placeholder block.
         return (
-          <section
-            key={c.key}
-            id={c.key}
-            className={clsx(
-              "py-20 md:py-28 relative overflow-hidden",
-              idx % 2 === 0 ? "bg-background" : "bg-surface"
-            )}
-          >
-            <div className="container mx-auto px-4 md:px-8">
-              <div className={clsx("grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center", flipped && "lg:[direction:rtl]")}>
-                {/* Visual block (left or right depending on idx). When ready, swap the
-                    placeholder div for <Image src={`/images/services-${c.key}.png`} ... /> */}
-                <div className={clsx("lg:col-span-5", flipped ? "lg:[direction:ltr]" : "")}>
-                  <AnimatedSection
-                    direction={flipped ? "left" : "right"}
-                    className="relative aspect-[4/3] rounded-sm overflow-hidden border border-line bg-gradient-to-br from-surface-2 via-surface to-background flex items-center justify-center group"
-                  >
-                    <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(circle_at_30%_20%,_var(--color-accent)_0%,_transparent_60%)]" />
-                    <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_at_70%_80%,_var(--color-accent)_0%,_transparent_60%)]" />
-                    <Icon className="relative w-32 h-32 md:w-40 md:h-40 text-accent/50 group-hover:scale-105 transition-transform duration-700" strokeWidth={1} />
-                    <span className={clsx("absolute bottom-6 left-6 right-6 text-center text-[10px] uppercase tracking-[0.3em] text-muted font-bold", isRTL && "font-arabic")}>
-                      {c.label} - {c.title}
-                    </span>
-                  </AnimatedSection>
-                </div>
+          <Fragment key={c.key}>
+            <section
+              id={c.key}
+              className={clsx(
+                "py-20 md:py-28 relative overflow-hidden",
+                idx % 2 === 0 ? "bg-background" : "bg-surface"
+              )}
+            >
+              <div className="container mx-auto px-4 md:px-8">
+                <div className={clsx("grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center", flipped && "lg:[direction:rtl]")}>
+                  {/* Photo block */}
+                  <div className={clsx("lg:col-span-5", flipped ? "lg:[direction:ltr]" : "")}>
+                    <AnimatedSection
+                      direction={flipped ? "left" : "right"}
+                      className="relative aspect-[4/3] rounded-sm overflow-hidden border border-line group"
+                    >
+                      <Image
+                        src={c.image}
+                        alt={c.title}
+                        fill
+                        sizes="(min-width: 1024px) 40vw, 100vw"
+                        className="object-cover object-center transition-transform duration-1000 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#06080b]/80 via-[#06080b]/10 to-transparent" />
+                      <div className={clsx("absolute bottom-5 left-5 right-5 flex items-center gap-2", isRTL && "flex-row-reverse")}>
+                        <Icon className="w-4 h-4 text-accent shrink-0" />
+                        <span className={clsx("text-white/90 text-[10px] uppercase tracking-[0.3em] font-bold", isRTL && "font-arabic")}>
+                          {c.label} - {c.title}
+                        </span>
+                      </div>
+                    </AnimatedSection>
+                  </div>
 
                 {/* Copy column */}
                 <div className={clsx("lg:col-span-7", flipped ? "lg:[direction:ltr]" : "")}>
@@ -341,6 +351,22 @@ export default function ServicesPage() {
               </div>
             </div>
           </section>
+
+            {/* Residential maintenance/renovation/expansion banner, right after Construction & Infrastructure */}
+            {c.key === "construction" && (
+              <section className="relative w-full overflow-hidden bg-[#06080b]">
+                <div className="relative w-full aspect-[1000/377] max-h-[460px]">
+                  <Image
+                    src={RESIDENTIAL_BANNER_IMG}
+                    alt={ar ? "صيانة وتجديد وتوسعة المباني السكنية" : "Residential maintenance, renovation, and expansion"}
+                    fill
+                    sizes="100vw"
+                    className="object-cover object-center"
+                  />
+                </div>
+              </section>
+            )}
+          </Fragment>
         );
       })}
 
