@@ -7,7 +7,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/AnimatedSection";
-import { Landmark, Compass, Target } from "lucide-react";
+import { Landmark, Compass, Target, CheckCircle2, ListChecks } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { translations } from "@/lib/translations";
 import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
@@ -106,10 +106,11 @@ export default function AboutPage() {
                   {lang === 'ar' ? <>من <span className="text-accent italic font-normal font-sans">نحن.</span></> : <>Who We <span className="text-accent italic font-normal">Are.</span></>}
                 </h2>
                 <div className={clsx("space-y-6 text-foreground/80 font-normal text-base md:text-lg leading-relaxed text-balance", isRTL && "text-start")}>
-                  <p>
+                  <p className={clsx(isRTL && "font-arabic")}>
                     <strong className={clsx("font-bold text-foreground", isRTL && "font-arabic")}>
-                      {lang === 'ar' ? "اثنين في واحد ش.م.م" : "Two in One LLC"}
-                    </strong> {lang === 'ar' ? "هي مورد بالجملة رائد يعمل في جوهر التجارة العالمية. نحن نقدم مواد ذات جودة استثنائية، تلبي عتبات النقاء الصارمة ومعايير ISO، مع مراعاة معايير الانبعاثات في منتجاتنا." : "is a premier wholesale supplier operating at the nexus of global trade. We deliver materials of exceptional quality, meeting strict purity thresholds and ISO standards, concerning emissions standards in our products."}
+                      {lang === 'ar' ? "شركة اثنين في واحد ش.م.م" : "Two in One LLC"}
+                    </strong>{" "}
+                    {t.about.content.p1}
                   </p>
 
                   <div className="border-s-2 border-accent ps-6 py-2 my-2">
@@ -120,16 +121,6 @@ export default function AboutPage() {
                       {t.about.content.heritage}
                     </p>
                   </div>
-
-                  <p>
-                    {t.about.content.p2}
-                  </p>
-                  <p>
-                    {t.about.content.p3}
-                  </p>
-                  <p>
-                    {t.about.content.p4}
-                  </p>
                 </div>
               </AnimatedSection>
             </div>
@@ -161,6 +152,42 @@ export default function AboutPage() {
             </div>
           </div>
 
+        </div>
+      </section>
+
+      {/* 3. OBJECTIVES SECTION */}
+      <section className="py-24 md:py-32 relative z-10 bg-surface border-t border-line">
+        <div className="container mx-auto px-4 md:px-8">
+          <AnimatedSection direction="up" className="mb-14 md:mb-16 text-center">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <ListChecks className="w-6 h-6 text-accent" />
+              <span className={clsx("text-accent text-xs uppercase font-bold tracking-widest", isRTL && "font-arabic")}>
+                {lang === 'ar' ? "ما نلتزم به" : "What We Commit To"}
+              </span>
+            </div>
+            <h2 className={clsx("text-4xl md:text-6xl font-serif font-bold text-foreground uppercase tracking-tighter", isRTL && "font-arabic")}>
+              {t.about.content.objectivesTitle}
+            </h2>
+            <div className="w-24 h-px bg-accent mx-auto mt-8" />
+          </AnimatedSection>
+
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6 max-w-5xl mx-auto">
+            {t.about.content.objectives.map((obj, i) => (
+              <StaggerItem
+                key={i}
+                direction="up"
+                className={clsx(
+                  "flex gap-4 bg-background p-6 md:p-7 rounded-sm border border-line hover:border-accent/40 transition-colors group",
+                  isRTL && "flex-row-reverse"
+                )}
+              >
+                <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-accent shrink-0 mt-1 group-hover:scale-110 transition-transform" />
+                <span className={clsx("text-foreground/85 text-sm md:text-base leading-relaxed", isRTL && "font-arabic text-start")}>
+                  {obj}
+                </span>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
         </div>
       </section>
     </div>
