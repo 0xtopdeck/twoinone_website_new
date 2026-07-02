@@ -5,7 +5,7 @@ export const COMPANY = {
   email: "business@twoinone.llc",
   emailGeneral: "info@twoinone.llc",
   phone: "+96891221958",
-  whatsapp: ["+96893083080", "+96892924885"],
+  whatsapp: ["+96893888080", "+96893083080", "+96892924885"],
   address: {
     en: "As Sinayat Al Qadima / Salalah / Dhofar Governorate",
     ar: "الصناعيات القديمة / صلالة / محافظة ظفار",
