@@ -9,7 +9,7 @@ export default function EmblemMark({ size }: { size: string }) {
     <span className={clsx("relative block shrink-0", size)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/images/twoinone-logo-icon.png"
+        src="/images/twoinone-logo.png"
         alt="Two in One LLC"
         className="absolute inset-0 block h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
       />

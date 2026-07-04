@@ -20,16 +20,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-12">
           {/* Brand */}
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center group gap-4 mb-8 -ml-2">
-              <EmblemMark size="h-[75px] w-[75px]" />
-              <div className="flex flex-col">
-                <span className="font-serif font-bold text-lg tracking-tight leading-none text-foreground uppercase">
-                  {lang === 'ar' ? "اثنين في واحد" : "Two in One"}
-                </span>
-                <span className="text-[10px] md:text-xs premium-tracking text-accent uppercase mt-1">
-                  {lang === 'ar' ? "ش.م.م" : "LLC"}
-                </span>
-              </div>
+            <Link href="/" className="flex items-center group mb-8 -ml-2">
+              <EmblemMark size="h-[110px] w-[110px]" />
             </Link>
             <p className="text-muted max-w-md font-normal text-sm md:text-base leading-relaxed text-balance italic">
               {t.footer.tagline}
