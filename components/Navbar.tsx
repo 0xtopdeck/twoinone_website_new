@@ -73,7 +73,14 @@ export default function Navbar() {
         <div className="container mx-auto px-6 md:px-12 flex justify-between md:flex-row items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group justify-self-start -ml-2">
-            <EmblemMark size="h-[80px] w-[80px]" />
+            <span className="relative block">
+              <span
+                aria-hidden="true"
+                className="absolute inset-[-25%] rounded-full pointer-events-none opacity-0 dark:opacity-100 transition-opacity duration-500"
+                style={{ background: "radial-gradient(circle at center, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.05) 40%, transparent 65%)" }}
+              />
+              <EmblemMark size="h-[80px] w-[80px]" />
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
