@@ -182,7 +182,7 @@ export default function Navbar() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-background/98 backdrop-blur-3xl text-foreground z-[9999] p-6 flex flex-col"
+            className="fixed inset-0 bg-background/98 backdrop-blur-3xl text-foreground z-[9999] p-6 flex flex-col overflow-y-auto overscroll-contain"
           >
             <div className="flex justify-between items-center mb-6 pb-4 border-b border-line">
               <div className="flex items-center gap-4 group">
