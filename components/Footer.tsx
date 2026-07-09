@@ -144,6 +144,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/auto-parts"
+                  className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
+                >
+                  {lang === 'ar' ? "قطع غيار الشاحنات" : "Truck Auto Parts"}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/services"
                   className="text-muted hover:text-accent transition-all hover:translate-x-1 inline-block uppercase text-xs font-bold tracking-widest"
                 >
