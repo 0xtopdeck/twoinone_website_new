@@ -61,14 +61,16 @@ export default function ServicesPage() {
       label: ar ? "القدرة الثانية" : "Capability II",
       title: ar ? "إدارة المرافق" : "Facilities Management",
       lead: ar
-        ? "خدمات تشغيلية مستمرة تحافظ على المباني والمساحات الخضراء في حالتها المثلى - عقود نظافة متخصصة وصيانة الحدائق وشبكات الري."
-        : "Ongoing operational services that keep buildings and green spaces at their best - specialized cleaning contracts, landscape upkeep, and irrigation maintenance.",
+        ? "خدمات تشغيلية مستمرة تحافظ على المباني والمساحات الخضراء في حالتها المثلى - صيانة شاملة للمباني، أنظمة تكييف وتوصيلات كهربائية، عقود نظافة متخصصة، وصيانة الحدائق وشبكات الري."
+        : "Ongoing operational services that keep buildings and green spaces at their best - full building maintenance, HVAC and internal electrical works, specialized cleaning contracts, and landscape and irrigation upkeep.",
       items: ar
         ? [
+            "صيانة المباني والتوصيلات الداخلية والخارجية - فريق متخصص يقدم صيانة شاملة للمباني، بما في ذلك أنظمة التكييف (HVAC) والتوصيلات الكهربائية الداخلية، وفق أعلى معايير الجودة والسلامة.",
             "خدمات النظافة العامة والمتخصصة - للمباني السكنية والتجارية والصناعية والحكومية، شاملةً التنظيف الدوري وتنظيف ما بعد البناء وحلول إدارة النظافة.",
             "صيانة وتطوير الحدائق العامة والخاصة والمساحات الخضراء - أعمال الري والتنسيق وزراعة الأشجار والتقليم والتجميل وصيانة شبكات الري.",
           ]
         : [
+            "Building Maintenance & Utility Installations - a specialized team providing comprehensive building maintenance, plus internal and external utility installations including HVAC systems and internal electrical works, delivered to the highest standards of quality and safety.",
             "General & Specialized Cleaning Services - residential, commercial, industrial, and government facilities, including routine cleaning, post-construction cleaning, sanitation, and cleaning management solutions.",
             "Parks, Gardens & Green Space Maintenance - irrigation works, landscaping, tree planting, cultivation, pruning, beautification, and maintenance of irrigation systems for public and private estates.",
           ],
