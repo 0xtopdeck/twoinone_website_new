@@ -16,6 +16,7 @@ import {
   Truck,
   Briefcase,
   CheckCircle2,
+  Wrench,
 } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { translations } from "@/lib/translations";
@@ -29,14 +30,36 @@ export default function ServicesPage() {
   const t = translations[lang];
   const ar = lang === "ar";
 
-  // The four capability clusters. Each maps to multiple tender activities.
+  // Capability clusters. Each maps to multiple tender activities.
   const capabilities = [
     {
-      key: "construction",
+      key: "maintenance",
       roman: "I",
+      icon: Wrench,
+      image: "/images/Maintenance_HVAC.png",
+      label: ar ? "القدرة الأولى" : "Capability I",
+      title: ar ? "الصيانة والتوصيلات" : "Maintenance & Utilities",
+      lead: ar
+        ? "فريق متخصص يقدم صيانة شاملة للمباني والتوصيلات الداخلية والخارجية - بما في ذلك أنظمة التكييف (HVAC) والأعمال الكهربائية الداخلية - بأعلى معايير الجودة والسلامة."
+        : "A specialized team providing comprehensive building maintenance and internal/external utility installations - including HVAC systems and internal electrical works - delivered to the highest standards of quality and safety.",
+      items: ar
+        ? [
+            "صيانة المباني الشاملة - أعمال دورية ووقائية وطارئة للمباني السكنية والتجارية والصناعية والحكومية.",
+            "أنظمة التكييف (HVAC) - تركيب وصيانة وحدات التكييف المركزية والمنفصلة، أنظمة التهوية، ومناولات الهواء، وصيانة قنوات وشبكات التبريد.",
+            "الأعمال الكهربائية الداخلية - توصيلات وتمديدات كهربائية داخلية، لوحات توزيع، إنارة، ومنظومات طاقة، وفق كودات السلامة المعتمدة.",
+          ]
+        : [
+            "Comprehensive Building Maintenance - routine, preventive, and emergency works for residential, commercial, industrial, and government buildings.",
+            "HVAC Systems - installation and servicing of central and split AC units, ventilation systems, air handlers, and upkeep of ductwork and cooling networks.",
+            "Internal Electrical Works - internal electrical connections and wiring, distribution boards, lighting, and power systems, executed to certified safety codes.",
+          ],
+    },
+    {
+      key: "construction",
+      roman: "II",
       icon: HardHat,
       image: "/images/Construction_cables_park.png",
-      label: ar ? "القدرة الأولى" : "Capability I",
+      label: ar ? "القدرة الثانية" : "Capability II",
       title: ar ? "البناء والبنية التحتية" : "Construction & Infrastructure",
       lead: ar
         ? "أعمال البناء العامة وأعمال البنية التحتية المدنية والرصف، بمعايير هندسية صارمة وتسليم في الوقت المحدد."
@@ -55,32 +78,30 @@ export default function ServicesPage() {
     },
     {
       key: "facilities",
-      roman: "II",
+      roman: "III",
       icon: Sparkles,
       image: "/images/Facility_management.png",
-      label: ar ? "القدرة الثانية" : "Capability II",
+      label: ar ? "القدرة الثالثة" : "Capability III",
       title: ar ? "إدارة المرافق" : "Facilities Management",
       lead: ar
-        ? "خدمات تشغيلية مستمرة تحافظ على المباني والمساحات الخضراء في حالتها المثلى - صيانة شاملة للمباني، أنظمة تكييف وتوصيلات كهربائية، عقود نظافة متخصصة، وصيانة الحدائق وشبكات الري."
-        : "Ongoing operational services that keep buildings and green spaces at their best - full building maintenance, HVAC and internal electrical works, specialized cleaning contracts, and landscape and irrigation upkeep.",
+        ? "خدمات تشغيلية مستمرة تحافظ على المباني والمساحات الخضراء في حالتها المثلى - عقود نظافة متخصصة وصيانة الحدائق وشبكات الري."
+        : "Ongoing operational services that keep buildings and green spaces at their best - specialized cleaning contracts, landscape upkeep, and irrigation maintenance.",
       items: ar
         ? [
-            "صيانة المباني والتوصيلات الداخلية والخارجية - فريق متخصص يقدم صيانة شاملة للمباني، بما في ذلك أنظمة التكييف (HVAC) والتوصيلات الكهربائية الداخلية، وفق أعلى معايير الجودة والسلامة.",
             "خدمات النظافة العامة والمتخصصة - للمباني السكنية والتجارية والصناعية والحكومية، شاملةً التنظيف الدوري وتنظيف ما بعد البناء وحلول إدارة النظافة.",
             "صيانة وتطوير الحدائق العامة والخاصة والمساحات الخضراء - أعمال الري والتنسيق وزراعة الأشجار والتقليم والتجميل وصيانة شبكات الري.",
           ]
         : [
-            "Building Maintenance & Utility Installations - a specialized team providing comprehensive building maintenance, plus internal and external utility installations including HVAC systems and internal electrical works, delivered to the highest standards of quality and safety.",
             "General & Specialized Cleaning Services - residential, commercial, industrial, and government facilities, including routine cleaning, post-construction cleaning, sanitation, and cleaning management solutions.",
             "Parks, Gardens & Green Space Maintenance - irrigation works, landscaping, tree planting, cultivation, pruning, beautification, and maintenance of irrigation systems for public and private estates.",
           ],
     },
     {
       key: "smart",
-      roman: "III",
+      roman: "IV",
       icon: Cpu,
       image: "/images/Smart_systems_security.png",
-      label: ar ? "القدرة الثالثة" : "Capability III",
+      label: ar ? "القدرة الرابعة" : "Capability IV",
       title: ar ? "الأنظمة الذكية والأمن" : "Smart Systems & Security",
       lead: ar
         ? "أنظمة المراقبة والتحكم الإلكترونية ومنازل ذكية متكاملة - من كاميرات CCTV وأنظمة التحكم بالدخول إلى أتمتة المباني الكاملة."
@@ -97,10 +118,10 @@ export default function ServicesPage() {
     },
     {
       key: "trading",
-      roman: "IV",
+      roman: "V",
       icon: Truck,
       image: "/images/Trading_and_distribution.png",
-      label: ar ? "القدرة الرابعة" : "Capability IV",
+      label: ar ? "القدرة الخامسة" : "Capability V",
       title: ar ? "التجارة والتوزيع" : "Trading & Distribution",
       lead: ar
         ? "استيراد وتصدير وتمثيل وكالات للمعدات والمواد والتقنيات المتعلقة بأنشطة الشركة - مع المشاركة في المناقصات الحكومية والخاصة."
