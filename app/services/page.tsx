@@ -36,7 +36,7 @@ export default function ServicesPage() {
       key: "maintenance",
       roman: "I",
       icon: Wrench,
-      image: "/images/Maintenance_HVAC.png",
+      image: "/images/hvac_maintenance.png",
       label: ar ? "القدرة الأولى" : "Capability I",
       title: ar ? "الصيانة والتوصيلات" : "Maintenance & Utilities",
       lead: ar
