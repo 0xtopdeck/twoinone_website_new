@@ -12,7 +12,7 @@ import {
 import { Wheat, Droplets, Ship } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { translations } from "@/lib/translations";
-import WheatFieldCanvas from "@/components/WheatFieldCanvas";
+import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
 import clsx from "clsx";
 
 export default function AgriculturePage() {
@@ -62,8 +62,8 @@ export default function AgriculturePage() {
       setDoneTyping(true);
       return;
     }
-    const t1 = setTimeout(() => setIntroDone(true), 4200);
-    const t2 = setTimeout(() => setHideField(true), 5200);
+    const t1 = setTimeout(() => setIntroDone(true), 3500);
+    const t2 = setTimeout(() => setHideField(true), 4500);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
@@ -105,7 +105,7 @@ export default function AgriculturePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#06080b] via-[#06080b]/80 to-transparent" />
         </div>
 
-        {/* Wheat-symbol field that sways in the wind, then fades to reveal the photo */}
+        {/* ASCII "materialize" intro, then fades to reveal the photo */}
         {!hideField && (
           <motion.div
             className="absolute inset-0 z-[1]"
@@ -113,7 +113,7 @@ export default function AgriculturePage() {
             animate={{ opacity: introDone ? 0 : 1 }}
             transition={{ duration: 0.9, ease: "easeInOut" }}
           >
-            <WheatFieldCanvas src="/images/wheat_brays_hero.png" className="absolute inset-0 h-full w-full" />
+            <AsciiRevealCanvas src="/images/wheat_brays_hero.png" charset=" .:-=+*#%@" className="absolute inset-0 h-full w-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#06080b] via-[#06080b]/40 to-transparent" />
           </motion.div>
         )}
@@ -206,7 +206,109 @@ export default function AgriculturePage() {
         </div>
       </section>
 
-      {/* 3. OPERATIONS GALLERY */}
+      {/* 3. OMANI DATES PORTFOLIO */}
+      <section className="py-24 md:py-32 bg-surface relative overflow-hidden">
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <AnimatedSection direction="up" className="mb-14 flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+              <div className={clsx("flex items-center gap-3 mb-4", isRTL && "flex-row-reverse justify-end")}>
+                <Wheat className="w-5 h-5 text-accent-2" />
+                <span className={clsx("text-accent-2 text-xs uppercase font-bold tracking-widest", isRTL && "font-arabic")}>
+                  {lang === 'ar' ? "التمور العُمانية الفاخرة" : "Premium Omani Dates"}
+                </span>
+              </div>
+              <h2 className={clsx("text-3xl md:text-5xl font-serif font-bold text-foreground uppercase tracking-tighter", isRTL && "font-arabic")}>
+                {lang === 'ar' ? <>تصدير <span className="text-accent-2 italic font-normal font-sans">التمور.</span></> : <>Dates <span className="text-accent-2 italic font-normal">Export.</span></>}
+              </h2>
+            </div>
+            <p className={clsx("text-muted font-normal max-w-xl text-balance text-sm md:text-base", isRTL && "text-start")}>
+              {lang === 'ar'
+                ? "تصدير جميع أنواع التمور العُمانية الفاخرة، بما فيها أصناف مختارة بعناية من مزارع منتشرة في مختلف مناطق سلطنة عُمان - مع خيارات تعبئة متعددة لتناسب الأسواق العالمية."
+                : "Export of all varieties of premium Omani dates, carefully selected from farms across the Sultanate of Oman. Each variety has its own unique character, taste, texture, origin, and packaging options tailored to global markets."}
+            </p>
+          </AnimatedSection>
+
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              {
+                key: "khalas",
+                name: lang === 'ar' ? "الخلاص" : "Khalas",
+                image: "/images/dates_khalas.png",
+                desc: lang === 'ar'
+                  ? "صنف فاخر ذو قوام طري وطعم يشبه العسل الكرميلي - يزرع في الباطنة والداخلية، ويُعبّأ في علب فاخرة 250 غ / 500 غ / 1 كغ."
+                  : "A premium variety with a soft, dense flesh and honey-caramel notes - grown in Al-Batinah and the interior, packed in premium 250 g / 500 g / 1 kg gift boxes.",
+              },
+              {
+                key: "fardh",
+                name: lang === 'ar' ? "الفرض" : "Fardh",
+                image: "/images/dates_fardh.png",
+                desc: lang === 'ar'
+                  ? "التمر التصديري الأول في عُمان - داكن اللون، مطاطي القوام، غني بالحلاوة. متوفر بأكياس صب 5 و10 كغ لأسواق آسيا وأفريقيا."
+                  : "Oman's flagship export date - dark, glossy, chewy, and richly sweet. Available in 5 kg and 10 kg bulk cases for Asian and African markets.",
+              },
+              {
+                key: "khunaizi",
+                name: lang === 'ar' ? "الخنيزي" : "Khunaizi",
+                image: "/images/dates_khunaizi.png",
+                desc: lang === 'ar'
+                  ? "تمر بلون بني محمر وحلاوة عميقة - ذو نكهة كثيفة تفضّلها الأسواق الخليجية. تعبئة 500 غ / 1 كغ / 5 كغ."
+                  : "A red-brown variety with deep sweetness and dense flavor prized in Gulf markets. Packed in 500 g, 1 kg, and 5 kg formats.",
+              },
+              {
+                key: "naghal",
+                name: lang === 'ar' ? "النغال" : "Naghal",
+                image: "/images/dates_naghal.png",
+                desc: lang === 'ar'
+                  ? "تمر صلب متوسط الحلاوة، يُقطف مبكراً - مثالي للاستهلاك الطازج والحلويات الحرفية. عبوات 1 و2 كغ."
+                  : "A firm, mildly sweet date harvested early - ideal for fresh consumption and artisan confectionery. 1 kg and 2 kg trays.",
+              },
+              {
+                key: "khasab",
+                name: lang === 'ar' ? "الخصاب" : "Khasab",
+                image: "/images/dates_khasab.png",
+                desc: lang === 'ar'
+                  ? "تمر أصفر مقرمش يُحصد في مرحلة الخلال - نكهة منعشة قابضة تناسب أسواق التمور الطازجة. عبوات مبردة 500 غ."
+                  : "Bright yellow, crisp dates harvested at the khalal stage - refreshingly tannic, suited to fresh-date markets. Chilled 500 g clamshells.",
+              },
+              {
+                key: "mabsali",
+                name: lang === 'ar' ? "المبسلي" : "Mabsali",
+                image: "/images/dates_mabsali.png",
+                desc: lang === 'ar'
+                  ? "تمر صغير رطب وحلو المذاق، من مزارع الداخلية - يُعبّأ للأسواق المتخصصة بعبوات 250 غ و 500 غ."
+                  : "A small, moist, delicately sweet date from interior groves - packed for specialty markets in 250 g and 500 g formats.",
+              },
+            ].map((d) => (
+              <StaggerItem
+                key={d.key}
+                direction="up"
+                className="bg-surface-2 rounded-sm border border-line overflow-hidden group hover:border-accent-2/40 transition-colors"
+              >
+                <div className="relative w-full h-56 overflow-hidden">
+                  <Image
+                    src={d.image}
+                    alt={d.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-surface-2 via-surface-2/10 to-transparent" />
+                </div>
+                <div className="p-6">
+                  <h3 className={clsx("text-xl font-serif font-bold text-foreground mb-2", isRTL && "font-arabic text-start")}>
+                    {d.name}
+                  </h3>
+                  <div className="w-8 h-px bg-accent-2 mb-4 group-hover:w-12 transition-all" />
+                  <p className={clsx("text-muted font-normal text-sm leading-relaxed text-balance", isRTL && "text-start")}>
+                    {d.desc}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* 4. OPERATIONS GALLERY */}
       <section className="py-24 bg-surface relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <AnimatedSection direction="up" className="mb-16 flex flex-col md:flex-row justify-between items-end gap-6">
