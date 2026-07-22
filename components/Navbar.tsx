@@ -20,17 +20,17 @@ export default function Navbar() {
   const t = translations[lang];
 
   const DIVISIONS = [
+    { name: t.nav.about, href: "/about", key: "About" },
+    { name: t.nav.services, href: "/services", key: "Services" },
+    { name: t.nav.careers, href: "/careers", key: "Careers" },
+    { name: t.common.contact, href: "/contact", key: "Contact" },
     { name: t.nav.agriculture, href: "/agriculture", key: "Agriculture" },
     { name: t.nav.construction, href: "/construction", key: "Construction" },
     { name: t.nav.sulfur, href: "/sulfur", key: "Sulfur" },
     { name: t.nav.food, href: "/food", key: "Food" },
     { name: t.nav.autoParts, href: "/auto-parts", key: "AutoParts" },
     { name: t.nav.uniforms, href: "/uniforms", key: "Uniforms" },
-    { name: t.nav.services, href: "/services", key: "Services" },
     { name: t.nav.events, href: "/events", key: "Events" },
-    { name: t.nav.about, href: "/about", key: "About" },
-    { name: t.nav.careers, href: "/careers", key: "Careers" },
-    { name: t.common.contact, href: "/contact", key: "Contact" },
   ];
 
   useEffect(() => {
@@ -92,9 +92,10 @@ export default function Navbar() {
             className="hidden md:flex items-center gap-1 bg-foreground/5 backdrop-blur-md p-1.5 rounded-full border border-line mx-auto shadow-inner"
             onMouseLeave={() => setHoveredKey(null)}
           >
-            {DIVISIONS.filter((div) => div.key !== "Contact").map((div) => {
+            {DIVISIONS.map((div) => {
               const isActive = activeKey === div.key;
               const isHovered = hoveredKey === div.key;
+              const isContact = div.key === "Contact";
 
               return (
                 <Link
@@ -102,8 +103,8 @@ export default function Navbar() {
                   href={div.href}
                   onMouseEnter={() => setHoveredKey(div.key)}
                   className={clsx(
-                    "relative px-3 xl:px-4 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 uppercase",
-                    isActive ? "text-background" : "text-foreground/70 hover:text-foreground"
+                    "relative px-2.5 xl:px-3.5 py-2 rounded-full text-[9px] xl:text-[11px] font-semibold premium-tracking transition-all duration-300 uppercase",
+                    isActive ? "text-background" : isContact ? "text-accent hover:text-accent" : "text-foreground/70 hover:text-foreground"
                   )}
                 >
                   {(isActive || isHovered) && (
@@ -120,27 +121,6 @@ export default function Navbar() {
                 </Link>
               );
             })}
-
-            <Link
-              href="/contact"
-              onMouseEnter={() => setHoveredKey("Contact")}
-              className={clsx(
-                "relative px-3 xl:px-4 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 ml-1 uppercase",
-                activeKey === "Contact" ? "text-background" : "text-accent hover:text-accent"
-              )}
-            >
-              {(activeKey === "Contact" || hoveredKey === "Contact") && (
-                <motion.div
-                  layoutId="nav-pill"
-                  className={clsx(
-                    "absolute inset-0 rounded-full -z-10 shadow-lg",
-                    activeKey === "Contact" ? "bg-accent" : "bg-foreground/10"
-                  )}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-              {t.common.contact}
-            </Link>
           </nav>
 
           <div className="flex items-center gap-2 md:gap-3">

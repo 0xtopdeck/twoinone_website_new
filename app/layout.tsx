@@ -34,7 +34,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Two in One LLC",
   description:
-    "Agricultural wholesale and industrial construction - sourced, surveyed, and delivered with sovereign-grade precision.",
+    "Agricultural wholesale, industrial construction, machinery, food wholesale, professional uniforms, and services - sourced, surveyed, and delivered with sovereign-grade precision.",
 };
 
 // Applies the saved theme before first paint to avoid a flash of the wrong theme.

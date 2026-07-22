@@ -9,7 +9,7 @@ import {
   StaggerContainer,
   StaggerItem,
 } from "@/components/AnimatedSection";
-import { CalendarDays, ClipboardCheck, Sparkles } from "lucide-react";
+import { CalendarDays, CheckCircle2, ClipboardCheck, Handshake, Sparkles } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { translations } from "@/lib/translations";
 import AsciiRevealCanvas from "@/components/AsciiRevealCanvas";
@@ -50,6 +50,28 @@ export default function EventsPage() {
   const services = ar
     ? ["المؤتمرات", "القمم", "المعارض", "إطلاق المنتجات", "حفلات الشركات", "ورش العمل"]
     : ["Conferences", "Summits", "Exhibitions", "Product Launches", "Corporate Galas", "Workshops"];
+
+  const productionCapabilities = ar
+    ? [
+        "تنفيذ وتجهيز الفعاليات",
+        "حلول المسارح والهياكل المعدنية",
+        "تنسيق الصوت والإضاءة",
+        "ديكور مواقع الفعاليات",
+        "تنسيق الفعالية ودعم المفهوم الإبداعي",
+        "تجهيز المعارض والأجنحة",
+        "عناصر الهوية والعرض البصري",
+        "دعم الإنتاج الكامل",
+      ]
+    : [
+        "Event Execution & Setup",
+        "Stage & Truss Solutions",
+        "Sound & Lighting Coordination",
+        "Venue Decoration",
+        "Event Styling & Concept Support",
+        "Exhibition & Booth Setup",
+        "Branding & Visual Elements",
+        "Full Production Support",
+      ];
 
   // Hero intro: ASCII photo "materializes" → real photo → typed headline.
   const [introDone, setIntroDone] = useState(false);
@@ -159,8 +181,8 @@ export default function EventsPage() {
             >
               <p className={clsx("text-white/80 text-base md:text-lg font-normal leading-relaxed max-w-xl text-balance", isRTL && "text-start")}>
                 {ar
-                  ? "من المؤتمرات الدولية إلى القمم التنفيذية وإطلاق المنتجات - نخطط وننتج وندير فعاليات الشركات من البداية إلى النهاية، بنفس المعيار الذي نطبقه على كل ما نقوم به."
-                  : "From international conferences to executive summits and product launches, we plan, produce, and run corporate events end-to-end - held to the same standard we apply to everything we do."}
+                  ? "نقدم تنفيذًا راقيًا للفعاليات وحلول إنتاج إبداعية تجمع بين الدقة والتميز البصري والتنسيق السلس للفعاليات المؤسسية والخاصة وفعاليات الجهات والمنظمات."
+                  : "We deliver refined event execution and creative production solutions, combining precision, visual excellence, and seamless coordination across corporate, private, and organization-led events."}
               </p>
               <Link
                 href="/contact"
@@ -210,7 +232,60 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* 3. REGISTRATION FEATURE */}
+      {/* 3. EVENT PRODUCTION CAPABILITIES */}
+      <section className="py-24 md:py-32 bg-surface border-y border-line">
+        <div className="container mx-auto px-4 md:px-8">
+          <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-14 lg:gap-20 items-start">
+            <AnimatedSection direction="up">
+              <div className={clsx("flex items-center gap-3 mb-6", isRTL && "flex-row-reverse justify-end")}>
+                <Sparkles className="w-6 h-6 text-accent" />
+                <span className={clsx("text-accent text-xs uppercase font-bold tracking-widest", isRTL && "font-arabic")}>
+                  {ar ? "التنفيذ والإنتاج" : "Execution & Production"}
+                </span>
+              </div>
+              <h2 className={clsx("text-3xl md:text-5xl font-serif font-bold text-foreground uppercase tracking-tighter mb-7", isRTL && "font-arabic text-start")}>
+                {ar ? <>تجارب مصممة <span className="text-accent italic font-normal font-sans">لتترك أثرًا.</span></> : <>Experiences Crafted <span className="text-accent italic font-normal">to Leave an Impression.</span></>}
+              </h2>
+              <p className={clsx("text-muted leading-relaxed text-base md:text-lg text-balance", isRTL && "text-start")}>
+                {ar
+                  ? "نمتلك خبرة في الفعاليات المؤسسية والخاصة وفعاليات الجهات والمنظمات، ونتعامل مع كل مشروع من خلال موازنة دقيقة بين التفاصيل الجمالية والتكامل التقني والتنفيذ المنظم. نلتزم بتقديم تجربة متقنة بمعايير رفيعة وتنسيق مدروس يضمن سلاسة كل مرحلة ويترك انطباعًا دائمًا."
+                  : "With proven experience across corporate, private, and organization-led events, we approach every project through a considered balance of aesthetic detail, technical integration, and structured execution. Our focus is flawless delivery, elevated standards, and thoughtfully crafted experiences that leave a lasting impression."}
+              </p>
+            </AnimatedSection>
+
+            <StaggerContainer className="grid sm:grid-cols-2 gap-3">
+              {productionCapabilities.map((capability) => (
+                <StaggerItem
+                  key={capability}
+                  direction="up"
+                  className={clsx("flex items-start gap-3 bg-background border border-line rounded-sm p-5", isRTL && "flex-row-reverse text-start")}
+                >
+                  <CheckCircle2 className="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                  <span className={clsx("text-sm font-semibold leading-relaxed", isRTL && "font-arabic")}>{capability}</span>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </div>
+
+          <AnimatedSection direction="up" delay={0.2} className="mt-14 bg-[#0a1822] text-white border border-white/10 rounded-sm p-7 md:p-9 flex flex-col md:flex-row gap-6 md:items-center">
+            <div className="w-12 h-12 rounded-full bg-accent/15 text-accent flex items-center justify-center shrink-0">
+              <Handshake className="w-6 h-6" />
+            </div>
+            <div>
+              <h3 className={clsx("text-xl md:text-2xl font-serif font-bold mb-2", isRTL && "font-arabic text-start")}>
+                {ar ? "التنفيذ بالتعاون مع شريك موثوق ومتخصص." : "Executed with a trusted specialist partner."}
+              </h3>
+              <p className={clsx("text-white/65 text-sm md:text-base leading-relaxed max-w-4xl", isRTL && "text-start")}>
+                {ar
+                  ? "تدير شركة اثنين في واحد متطلبات الفعالية والتنسيق التجاري والإشراف على المشروع، بينما يتم تنفيذ أعمال التنظيم والإنتاج الفني بالتعاون مع شريك موثوق ومتخصص في تجهيز الفعاليات."
+                  : "Two in One manages the event brief, commercial coordination, and project oversight, while event organization and technical production are delivered with a trusted specialist partner experienced in event setup and execution."}
+              </p>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* 4. REGISTRATION FEATURE */}
       <section className="py-24 bg-surface relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -259,7 +334,7 @@ export default function EventsPage() {
         </div>
       </section>
 
-      {/* 4. CTA BAND */}
+      {/* 5. CTA BAND */}
       <section className="py-20 md:py-28 bg-background relative">
         <div className="container mx-auto px-4 md:px-8 text-center">
           <Sparkles className="w-8 h-8 text-accent mx-auto mb-6" />

@@ -122,8 +122,8 @@ export default function Home() {
             className="mx-auto mt-8 max-w-xl text-balance text-base leading-relaxed text-muted md:text-lg"
           >
             {lang === "ar"
-              ? "تجارة الجملة الزراعية والإنشاءات الصناعية — التوريد والفحص والتسليم بدقة سيادية."
-              : "Agricultural wholesale and industrial construction - sourced, surveyed, and delivered with sovereign-grade precision."}
+              ? "تجارة الجملة الزراعية، والإنشاءات الصناعية، والمعدات، وتجارة الأغذية بالجملة، والزي المهني، والخدمات — توريد وفحص وتسليم بدقة سيادية."
+              : "Agricultural wholesale, industrial construction, machinery, food wholesale, professional uniforms, and services - sourced, surveyed, and delivered with sovereign-grade precision."}
           </motion.p>
 
           <motion.div
