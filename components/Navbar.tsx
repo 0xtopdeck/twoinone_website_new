@@ -25,6 +25,7 @@ export default function Navbar() {
     { name: t.nav.sulfur, href: "/sulfur", key: "Sulfur" },
     { name: t.nav.food, href: "/food", key: "Food" },
     { name: t.nav.autoParts, href: "/auto-parts", key: "AutoParts" },
+    { name: t.nav.uniforms, href: "/uniforms", key: "Uniforms" },
     { name: t.nav.services, href: "/services", key: "Services" },
     { name: t.nav.events, href: "/events", key: "Events" },
     { name: t.nav.about, href: "/about", key: "About" },
@@ -48,6 +49,7 @@ export default function Navbar() {
     if (pathname === "/sulfur") return "Sulfur";
     if (pathname === "/food") return "Food";
     if (pathname === "/auto-parts") return "AutoParts";
+    if (pathname === "/uniforms") return "Uniforms";
     if (pathname === "/services") return "Services";
     if (pathname === "/events") return "Events";
     if (pathname === "/agriculture") return "Agriculture";
@@ -72,7 +74,7 @@ export default function Navbar() {
             : "bg-background/60 backdrop-blur-lg py-4 md:bg-background/30 md:backdrop-blur-sm shadow-sm"
         )}
       >
-        <div className="container mx-auto px-6 md:px-12 flex justify-between md:flex-row items-center">
+        <div className="container mx-auto px-4 lg:px-6 xl:px-10 flex justify-between md:flex-row items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center group justify-self-start -ml-2">
             <span className="relative block">
@@ -100,7 +102,7 @@ export default function Navbar() {
                   href={div.href}
                   onMouseEnter={() => setHoveredKey(div.key)}
                   className={clsx(
-                    "relative px-6 py-2 rounded-full text-xs font-semibold premium-tracking transition-all duration-300 uppercase",
+                    "relative px-3 xl:px-4 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 uppercase",
                     isActive ? "text-background" : "text-foreground/70 hover:text-foreground"
                   )}
                 >
@@ -123,7 +125,7 @@ export default function Navbar() {
               href="/contact"
               onMouseEnter={() => setHoveredKey("Contact")}
               className={clsx(
-                "relative px-6 py-2 rounded-full text-xs font-semibold premium-tracking transition-all duration-300 ml-1 uppercase",
+                "relative px-3 xl:px-4 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 ml-1 uppercase",
                 activeKey === "Contact" ? "text-background" : "text-accent hover:text-accent"
               )}
             >
