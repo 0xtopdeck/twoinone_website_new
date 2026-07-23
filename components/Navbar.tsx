@@ -111,8 +111,10 @@ export default function Navbar() {
                     className="relative group"
                     onMouseEnter={() => setHoveredKey(div.key)}
                   >
-                    <Link
-                      href={div.href}
+                    <button
+                      type="button"
+                      aria-haspopup="menu"
+                      aria-label={lang === "ar" ? "فتح قائمة الخدمات والأنشطة" : "Open Services & Activities menu"}
                       className={clsx(
                         "relative px-5 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 uppercase flex items-center gap-1.5",
                         servicesActive ? "text-background" : "text-foreground/70 hover:text-foreground"
@@ -130,7 +132,7 @@ export default function Navbar() {
                       )}
                       {div.name}
                       <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
-                    </Link>
+                    </button>
 
                     <div className={clsx(
                       "absolute top-full z-50 pt-4 opacity-0 invisible translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto",
@@ -277,24 +279,18 @@ export default function Navbar() {
                     {div.key === "Services" ? (
                       <>
                         <div className="flex items-center">
-                          <Link
-                            href={div.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className={clsx(
-                              "flex-1 py-3.5 text-lg font-serif transition-colors",
-                              servicesActive ? "text-accent" : "text-foreground hover:text-accent"
-                            )}
-                          >
-                            {div.name}
-                          </Link>
                           <button
                             type="button"
                             onClick={() => setMobileServicesOpen((open) => !open)}
-                            aria-label={lang === "ar" ? "عرض صفحات الخدمات" : "Show service pages"}
+                            aria-label={lang === "ar" ? "عرض صفحات الخدمات والأنشطة" : "Show Services & Activities pages"}
                             aria-expanded={mobileServicesOpen}
-                            className="p-3 text-accent"
+                            className={clsx(
+                              "flex flex-1 items-center justify-between py-3.5 text-lg font-serif transition-colors",
+                              servicesActive ? "text-accent" : "text-foreground hover:text-accent"
+                            )}
                           >
-                            <ChevronDown className={clsx("w-5 h-5 transition-transform", mobileServicesOpen && "rotate-180")} />
+                            <span>{div.name}</span>
+                            <ChevronDown className={clsx("me-3 w-5 h-5 text-accent transition-transform", mobileServicesOpen && "rotate-180")} />
                           </button>
                         </div>
                         <AnimatePresence initial={false}>
