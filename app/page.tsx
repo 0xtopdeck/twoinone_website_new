@@ -34,8 +34,8 @@ export default function Home() {
   const [typed, setTyped] = useState(0);
   const [doneTyping, setDoneTyping] = useState(false);
 
-  const line1 = lang === "ar" ? "تخصصان." : "Two Disciplines.";
-  const line2 = lang === "ar" ? "معيار واحد." : "One Standard.";
+  const line1 = lang === "ar" ? "نربط الخبرات والموارد والفرص" : "Connecting Expertise, Resources, and Opportunities";
+  const line2 = lang === "ar" ? "لنقدم حلولاً بلا حدود" : "Delivering Solutions Without Boundaries";
   const shown1 = doneTyping ? line1 : line1.slice(0, Math.min(typed, line1.length));
   const shown2 = doneTyping ? line2 : typed > line1.length ? line2.slice(0, typed - line1.length) : "";
   const caretOn1 = reveal && !doneTyping && typed <= line1.length;
@@ -104,7 +104,7 @@ export default function Home() {
             <span className="h-px w-8 bg-accent/50" />
           </motion.span>
 
-          <h1 className="font-serif text-5xl font-bold uppercase leading-[0.95] tracking-tighter text-foreground sm:text-6xl md:text-7xl lg:text-8xl">
+          <h1 className="font-serif text-4xl font-bold uppercase leading-[0.95] tracking-tighter text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="sr-only">{line1} {line2}</span>
             <span aria-hidden="true">
               {shown1}

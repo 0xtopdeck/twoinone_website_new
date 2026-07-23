@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight, Languages, Sun, Moon } from "lucide-react";
+import { Menu, X, ArrowRight, ChevronDown, Languages, Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 import { useLanguage } from "./LanguageContext";
@@ -14,16 +14,21 @@ import { translations } from "@/lib/translations";
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
   const t = translations[lang];
 
-  const DIVISIONS = [
+  const PRIMARY_NAV = [
     { name: t.nav.about, href: "/about", key: "About" },
     { name: t.nav.services, href: "/services", key: "Services" },
     { name: t.nav.careers, href: "/careers", key: "Careers" },
     { name: t.common.contact, href: "/contact", key: "Contact" },
+  ];
+
+  const SERVICE_PAGES = [
+    { name: lang === "ar" ? "نظرة عامة على الخدمات" : "Services Overview", href: "/services", key: "Services" },
     { name: t.nav.agriculture, href: "/agriculture", key: "Agriculture" },
     { name: t.nav.construction, href: "/construction", key: "Construction" },
     { name: t.nav.sulfur, href: "/sulfur", key: "Sulfur" },
@@ -58,6 +63,7 @@ export default function Navbar() {
 
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
   const activeKey = getActiveKey();
+  const servicesActive = activeKey === "Services" || SERVICE_PAGES.some((page) => page.key === activeKey);
 
   return (
     <>
@@ -92,10 +98,65 @@ export default function Navbar() {
             className="hidden md:flex items-center gap-1 bg-foreground/5 backdrop-blur-md p-1.5 rounded-full border border-line mx-auto shadow-inner"
             onMouseLeave={() => setHoveredKey(null)}
           >
-            {DIVISIONS.map((div) => {
+            {PRIMARY_NAV.map((div) => {
               const isActive = activeKey === div.key;
               const isHovered = hoveredKey === div.key;
               const isContact = div.key === "Contact";
+              const isServices = div.key === "Services";
+
+              if (isServices) {
+                return (
+                  <div
+                    key={div.key}
+                    className="relative group"
+                    onMouseEnter={() => setHoveredKey(div.key)}
+                  >
+                    <Link
+                      href={div.href}
+                      className={clsx(
+                        "relative px-5 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 uppercase flex items-center gap-1.5",
+                        servicesActive ? "text-background" : "text-foreground/70 hover:text-foreground"
+                      )}
+                    >
+                      {(servicesActive || isHovered) && (
+                        <motion.div
+                          layoutId="nav-pill"
+                          className={clsx(
+                            "absolute inset-0 rounded-full -z-10 shadow-lg",
+                            servicesActive ? "bg-accent" : "bg-foreground/10"
+                          )}
+                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                        />
+                      )}
+                      {div.name}
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+                    </Link>
+
+                    <div className={clsx(
+                      "absolute top-full z-50 pt-4 opacity-0 invisible translate-y-2 pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:pointer-events-auto",
+                      isRTL ? "right-0" : "left-0"
+                    )}>
+                      <div className="w-72 rounded-2xl border border-line bg-background/95 p-2 shadow-2xl backdrop-blur-xl">
+                        {SERVICE_PAGES.map((page) => (
+                          <Link
+                            key={page.key}
+                            href={page.href}
+                            className={clsx(
+                              "flex items-center justify-between rounded-xl px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-colors",
+                              pathname === page.href
+                                ? "bg-accent text-background"
+                                : "text-foreground/70 hover:bg-foreground/10 hover:text-foreground"
+                            )}
+                          >
+                            <span>{page.name}</span>
+                            <ArrowRight className={clsx("w-3.5 h-3.5", isRTL && "rotate-180")} />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -103,7 +164,7 @@ export default function Navbar() {
                   href={div.href}
                   onMouseEnter={() => setHoveredKey(div.key)}
                   className={clsx(
-                    "relative px-2.5 xl:px-3.5 py-2 rounded-full text-[9px] xl:text-[11px] font-semibold premium-tracking transition-all duration-300 uppercase",
+                    "relative px-5 py-2 rounded-full text-[10px] xl:text-xs font-semibold premium-tracking transition-all duration-300 uppercase",
                     isActive ? "text-background" : isContact ? "text-accent hover:text-accent" : "text-foreground/70 hover:text-foreground"
                   )}
                 >
@@ -211,25 +272,78 @@ export default function Navbar() {
                 <h4 className="text-[10px] uppercase tracking-[0.3em] text-accent/60 font-bold mb-4 font-serif italic">
                   {t.common.navigation}
                 </h4>
-                {DIVISIONS.map((div) => (
-                  <Link
-                    key={div.key}
-                    href={div.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="py-3.5 flex justify-between items-center group border-b border-line last:border-0"
-                  >
-                    <span className={clsx(
-                      "text-lg font-serif transition-colors",
-                      activeKey === div.key ? "text-accent" : "text-foreground group-hover:text-accent"
-                    )}>
-                      {div.name}
-                    </span>
-                    <ArrowRight className={clsx(
-                      "w-4 h-4 transition-all text-accent",
-                      isRTL && "rotate-180",
-                      activeKey === div.key ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"
-                    )} />
-                  </Link>
+                {PRIMARY_NAV.map((div) => (
+                  <div key={div.key} className="border-b border-line last:border-0">
+                    {div.key === "Services" ? (
+                      <>
+                        <div className="flex items-center">
+                          <Link
+                            href={div.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={clsx(
+                              "flex-1 py-3.5 text-lg font-serif transition-colors",
+                              servicesActive ? "text-accent" : "text-foreground hover:text-accent"
+                            )}
+                          >
+                            {div.name}
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => setMobileServicesOpen((open) => !open)}
+                            aria-label={lang === "ar" ? "عرض صفحات الخدمات" : "Show service pages"}
+                            aria-expanded={mobileServicesOpen}
+                            className="p-3 text-accent"
+                          >
+                            <ChevronDown className={clsx("w-5 h-5 transition-transform", mobileServicesOpen && "rotate-180")} />
+                          </button>
+                        </div>
+                        <AnimatePresence initial={false}>
+                          {mobileServicesOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="pb-3 ps-4 flex flex-col">
+                                {SERVICE_PAGES.map((page) => (
+                                  <Link
+                                    key={page.key}
+                                    href={page.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className={clsx(
+                                      "py-2.5 text-sm font-semibold",
+                                      pathname === page.href ? "text-accent" : "text-muted hover:text-accent"
+                                    )}
+                                  >
+                                    {page.name}
+                                  </Link>
+                                ))}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </>
+                    ) : (
+                      <Link
+                        href={div.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="py-3.5 flex justify-between items-center group"
+                      >
+                        <span className={clsx(
+                          "text-lg font-serif transition-colors",
+                          activeKey === div.key ? "text-accent" : "text-foreground group-hover:text-accent"
+                        )}>
+                          {div.name}
+                        </span>
+                        <ArrowRight className={clsx(
+                          "w-4 h-4 transition-all text-accent",
+                          isRTL && "rotate-180",
+                          activeKey === div.key ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"
+                        )} />
+                      </Link>
+                    )}
+                  </div>
                 ))}
               </div>
 
