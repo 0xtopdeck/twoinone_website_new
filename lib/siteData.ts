@@ -34,16 +34,7 @@ export const ACTIVITY_LINKS = [
     labelKey: "uniforms",
     href: "/uniforms",
   },
-  {
-    key: "AutoParts",
-    labelKey: "machineryAutoParts",
-    href: "/auto-parts",
-  },
-  {
-    key: "Commodities",
-    labelKey: "commodities",
-    href: "/commodities",
-  },
+  
 ] as const;
 
 export const LEGACY_COMMODITY_ROUTES = [
