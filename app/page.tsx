@@ -64,18 +64,7 @@ export default function Home() {
       label: ar ? "استكشف الجولات" : "Explore Tours",
       icon: CarFront,
     },
-    {
-      key: "commodities",
-      title: ar ? "السلع والمواد" : "Commodities & Materials",
-      description: ar
-        ? "الزراعة والأغذية والصلب والكبريت مع تنسيق التوريد والفحص والخدمات اللوجستية."
-        : "Agriculture, food, steel, and sulfur with coordinated sourcing, inspection, and logistics.",
-      image: "/images/harvesting_brays_hero_product.png",
-      objectPosition: "object-[58%_center]",
-      href: "/commodities",
-      label: ar ? "استكشف السلع والمواد" : "Explore Commodities",
-      icon: PackageSearch,
-    },
+   
     {
       key: "uniforms",
       title: ar ? "الزي المهني" : "Professional Uniforms",
@@ -88,18 +77,7 @@ export default function Home() {
       label: ar ? "استكشف الزي المهني" : "Explore Uniforms",
       icon: Shirt,
     },
-    {
-      key: "auto-parts",
-      title: ar ? "الآلات وقطع الغيار" : "Machinery & Auto Parts",
-      description: ar
-        ? "توريد وتوزيع موثوق لاحتياجات التشغيل."
-        : "Reliable sourcing and distribution for operations.",
-      image: "/images/auto-parts-airfreight.png",
-      objectPosition: "object-center",
-      href: "/auto-parts",
-      label: ar ? "استكشف التوريد التشغيلي" : "Explore Operational Supply",
-      icon: Cog,
-    },
+    
   ];
 
   return (
