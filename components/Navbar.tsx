@@ -10,7 +10,7 @@ import { useLanguage } from "./LanguageContext";
 import { useTheme } from "./ThemeContext";
 import EmblemMark from "./EmblemMark";
 import { translations } from "@/lib/translations";
-import { ACTIVITY_LINKS, LEGACY_COMMODITY_ROUTES } from "@/lib/siteData";
+import { ACTIVITY_LINKS } from "@/lib/siteData";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,8 +58,7 @@ export default function Navbar() {
     if (pathname === "/about") return "About";
     if (pathname === "/contact") return "Contact";
     if (pathname === "/careers") return "Careers";
-    if (LEGACY_COMMODITY_ROUTES.some((route) => route === pathname)) return "Commodities";
-
+    
     const activeActivity = ACTIVITY_PAGES.find(
       (page) => pathname === page.href || pathname.startsWith(`${page.href}/`)
     );
