@@ -33,18 +33,7 @@ export default function Navbar() {
     name: t.nav[page.labelKey],
   }));
 
-  const COMMODITY_SUBPAGES = [
-    {
-      key: "AgricultureFood",
-      name: lang === "ar" ? "المنتجات الزراعية والغذائية" : "Agriculture & Food Products",
-      href: "/commodities/agriculture-food",
-    },
-    {
-      key: "ConstructionMaterials",
-      name: lang === "ar" ? "مواد البناء" : "Construction Materials",
-      href: "/commodities/construction-materials",
-    },
-  ];
+ 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -158,24 +147,7 @@ export default function Navbar() {
                               <span>{page.name}</span>
                               <ArrowRight className={clsx("w-3.5 h-3.5", isRTL && "rotate-180")} />
                             </Link>
-                            {page.key === "Commodities" && (
-                              <div className="mb-1 ms-4 mt-1 flex flex-col border-s border-line ps-2">
-                                {COMMODITY_SUBPAGES.map((child) => (
-                                  <Link
-                                    key={child.key}
-                                    href={child.href}
-                                    className={clsx(
-                                      "rounded-lg px-3 py-2 text-[10px] font-semibold uppercase tracking-wider transition-colors",
-                                      pathname === child.href
-                                        ? "bg-foreground/10 text-accent"
-                                        : "text-muted hover:bg-foreground/10 hover:text-foreground"
-                                    )}
-                                  >
-                                    {child.name}
-                                  </Link>
-                                ))}
-                              </div>
-                            )}
+                            
                           </div>
                         ))}
                       </div>
@@ -338,23 +310,7 @@ export default function Navbar() {
                                     >
                                       {page.name}
                                     </Link>
-                                    {page.key === "Commodities" && (
-                                      <div className="mb-2 ms-3 flex flex-col border-s border-line ps-3">
-                                        {COMMODITY_SUBPAGES.map((child) => (
-                                          <Link
-                                            key={child.key}
-                                            href={child.href}
-                                            onClick={() => setMobileMenuOpen(false)}
-                                            className={clsx(
-                                              "py-2 text-xs font-semibold",
-                                              pathname === child.href ? "text-accent" : "text-muted hover:text-accent"
-                                            )}
-                                          >
-                                            {child.name}
-                                          </Link>
-                                        ))}
-                                      </div>
-                                    )}
+                                   
                                   </div>
                                 ))}
                               </div>
