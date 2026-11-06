@@ -56,3 +56,23 @@ className="inline-block bg-accent text-background px-8 py-4 font-bold"
         </p>
         <Link
           href="/contact"
+className="inline-block bg-accent text-background px-8 py-4 font-bold"
+    >
+      {c.cta}
+    </Link>
+  </div>
+</div>
+</section>
+
+  <section className="text-center py-16 px-6">
+    <Link
+      href="/uniforms"
+      className="text-accent font-bold underline underline-offset-4"
+    >
+      {isRTL ? "→ " : "← "}
+      {c.back}
+    </Link>
+  </section>
+</main>
+);
+}
