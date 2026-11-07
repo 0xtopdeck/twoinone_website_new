@@ -128,7 +128,7 @@ return (
   </section>
 
   <section
-[11/7/2026 10:13 AM] Sahereh Khs: id="collection"
+id="collection"
     className="container mx-auto px-6 py-24 md:px-12"
   >
     <div className="mb-12 max-w-3xl">
