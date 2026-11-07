@@ -16,6 +16,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileActivitiesOpen, setMobileActivitiesOpen] = useState(false);
+  const [uniformsOpen, setUniformsOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
@@ -163,6 +164,12 @@ const UNIFORM_SUBPAGES = [
                           <div key={page.key}>
                             <Link
                               href={page.href}
+                              onClick={(e) => {
+  if (page.key === "Uniforms") {
+    e.preventDefault();
+    setUniformsOpen((prev) => !prev);
+  }
+}}
                               className={clsx(
                                 "flex items-center justify-between rounded-xl px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-colors",
                                 activeKey === page.key
@@ -173,7 +180,7 @@ const UNIFORM_SUBPAGES = [
                               <span>{page.name}</span>
                               <ArrowRight className={clsx("w-3.5 h-3.5", isRTL && "rotate-180")} />
                             </Link>
-                            {page.key === "Uniforms" && (
+                           {page.key === "Uniforms" && uniformsOpen && (
   <div
     className={clsx(
       "mt-1 mb-2 space-y-1",
