@@ -208,7 +208,7 @@ export default function HomeHeroCarousel() {
               title: "Built for Work.",
               accentTitle: "Ready for Operations.",
               description:
-                Purpose-built workwear and protective clothing designed to support teams across demanding work environments.
+               "Purpose-built workwear and protective clothing designed to support teams across demanding work environments.",
             image: "/images/uniforms-mechanic-custom.png",
               secondaryImage: "/images/uniforms-hero.png",
               objectPosition: "object-[50%_center] sm:object-center",
