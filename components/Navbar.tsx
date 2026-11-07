@@ -16,6 +16,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileActivitiesOpen, setMobileActivitiesOpen] = useState(false);
+  const [uniformsOpen, setUniformsOpen] = useState(false);
   const pathname = usePathname();
   const { lang, setLang, isRTL } = useLanguage();
   const { theme, toggleTheme } = useTheme();
@@ -32,7 +33,33 @@ export default function Navbar() {
     ...page,
     name: t.nav[page.labelKey],
   }));
-
+const UNIFORM_SUBPAGES = [
+  {
+    href: "/uniforms/industrial",
+    en: "Industrial Uniforms",
+    ar: "الزي الصناعي",
+  },
+  {
+    href: "/uniforms/medical",
+    en: "Medical Uniforms",
+    ar: "الزي الطبي",
+  },
+  {
+    href: "/uniforms/schools",
+    en: "School Uniforms",
+    ar: "الزي المدرسي",
+  },
+  {
+    href: "/uniforms/hotels-catering",
+    en: "Hotels & Catering Uniforms",
+    ar: "زي الفنادق والضيافة",
+  },
+  {
+    href: "/uniforms/military",
+    en: "Military Uniforms",
+    ar: "الزي العسكري",
+  },
+];
  
 
   useEffect(() => {
@@ -137,6 +164,12 @@ export default function Navbar() {
                           <div key={page.key}>
                             <Link
                               href={page.href}
+                              onClick={(e) => {
+  if (page.key === "Uniforms") {
+    e.preventDefault();
+    setUniformsOpen((prev) => !prev);
+  }
+}}
                               className={clsx(
                                 "flex items-center justify-between rounded-xl px-4 py-3 text-xs font-semibold uppercase tracking-wider transition-colors",
                                 activeKey === page.key
@@ -147,7 +180,26 @@ export default function Navbar() {
                               <span>{page.name}</span>
                               <ArrowRight className={clsx("w-3.5 h-3.5", isRTL && "rotate-180")} />
                             </Link>
-                            
+                           {page.key === "Uniforms" && uniformsOpen && (
+  <div
+    className={clsx(
+      "mt-1 mb-2 space-y-1",
+      isRTL
+        ? "mr-3 border-r border-line pr-3"
+        : "ml-3 border-l border-line pl-3"
+    )}
+  >
+    {UNIFORM_SUBPAGES.map((item) => (
+      <Link
+        key={item.href}
+        href={item.href}
+        className="block rounded-lg px-3 py-2 text-xs text-foreground/70 transition-colors hover:bg-foreground/10 hover:text-foreground"
+      >
+        {lang === "ar" ? item.ar : item.en}
+      </Link>
+    ))}
+  </div>
+)}
                           </div>
                         ))}
                       </div>
