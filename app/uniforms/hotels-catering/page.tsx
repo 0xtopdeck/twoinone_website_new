@@ -99,7 +99,7 @@ return (
 <main className="min-h-screen bg-background text-foreground">
 <section className="relative flex min-h-[600px] items-center bg-[#071018]">
 <Image
-src="/images/uniforms-hero.png"
+src="/images/IMG_6747.PNG"
 alt="Hotels and catering uniforms"
 fill
 priority
