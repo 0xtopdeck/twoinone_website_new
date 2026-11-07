@@ -97,7 +97,13 @@ const c = content[lang];
 return (
 <main className="min-h-screen bg-background text-foreground">
 <section className="relative flex min-h-[580px] items-center overflow-hidden bg-[#071018]">
-<div className="absolute inset-0 bg-gradient-to-br from-[#172b38] via-[#071018] to-black" />
+<div
+  className="absolute inset-0 bg-cover bg-center"
+  style={{
+    backgroundImage:
+      "linear-gradient(90deg, rgba(7,16,24,0.9), rgba(7,16,24,0.5)), url('/images/IMG_6746.PNG')",
+  }}
+/>
 
     <div className="relative z-10 container mx-auto px-6 py-28 md:px-12">
       <div className="max-w-4xl">
