@@ -129,7 +129,7 @@ className="object-cover opacity-30"
           className="inline-block bg-accent px-8 py-4 font-bold text-background transition-opacity hover:opacity-90"
         >
           {c.explore}
-[11/7/2026 10:02 AM] Sahereh Khs: </a>
+ </a>
       </div>
     </div>
   </section>
