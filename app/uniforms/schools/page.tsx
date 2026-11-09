@@ -223,7 +223,9 @@ export default function SchoolsUniformsPage() {
     <main className="min-h-screen bg-background text-foreground">
       <section className="relative overflow-hidden bg-[#071018] text-white">
         <div
-  className={isRTL ? "absolute inset-y-0 w-1/2 bg-no-repeat bg-contain bg-center left-0" : "absolute inset-y-0 w-1/2 bg-no-repeat bg-contain bg-center right-0"}
+ className={isRTL
+  ? "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:left-0 md:right-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"
+  : "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:right-0 md:left-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"}
    style={{
  backgroundImage: "url('/images/IMG_6748.PNG')",
   }}
