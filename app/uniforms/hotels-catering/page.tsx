@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/components/LanguageContext";
 
@@ -98,12 +97,15 @@ const c = content[lang];
 return (
 <main className="min-h-screen bg-background text-foreground">
 <section className="relative flex min-h-[600px] items-center bg-[#071018]">
-<Image
-src="/images/IMG_6747.PNG"
-alt="Hotels and catering uniforms"
-fill
-priority
-className="object-cover opacity-30"
+  aria-hidden="true"
+  className={
+    isRTL
+      ? "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:left-0 md:right-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"
+      : "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:right-0 md:left-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"
+  }
+  style={{
+    backgroundImage: "url('/images/IMG_6747.PNG')",
+  }}
 />
 
     <div className="relative z-10 container mx-auto px-6 py-28 md:px-12">
