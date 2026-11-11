@@ -97,6 +97,7 @@ const c = content[lang];
 return (
 <main className="min-h-screen bg-background text-foreground">
 <section className="relative flex min-h-[600px] items-center bg-[#071018]">
+  <div
   aria-hidden="true"
   className={
     isRTL
