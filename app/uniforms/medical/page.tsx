@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/components/LanguageContext";
 
@@ -62,96 +61,92 @@ return (
 dir={isRTL ? "rtl" : "ltr"}
 className="min-h-screen bg-background text-foreground"
 >
-{/* HERO SECTION */}
-<section className="relative flex min-h-[650px] items-center overflow-hidden bg-[#071018] text-white">
-<Image
-src="/images/photo_2026-10-25_18-28-20.jpg"
-alt="Medical uniforms for healthcare teams"
-fill
-priority
-className="object-cover object-center"
-sizes="100vw"
-/>
-
-    {/* DARK OVERLAY */}
-    <div className="absolute inset-0 bg-[#071018]/55" />
-
-    <div className="absolute inset-0 bg-gradient-to-r from-[#071018]/90 via-[#071018]/65 to-[#071018]/30" />
-
-    {/* HERO CONTENT */}
-    <div className="relative z-10 container mx-auto px-6 py-20 md:px-12 md:py-28">
-      <div className="max-w-3xl">
-        <p className="mb-8 text-sm font-bold tracking-[0.16em] text-accent md:text-base">
-          {c.label}
-        </p>
-
-        <h1 className="mb-8 text-5xl font-extrabold leading-[1.08] tracking-tight md:text-7xl">
+{/* HERO */}
+<section className="overflow-hidden bg-[#071018] text-white">
+<div className="container mx-auto grid grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
+<div className="order-2 min-w-0 text-start md:order-1">
+<p className="mb-5 text-xs font-bold tracking-widest text-accent md:text-sm">
+{c.label}
+</p>
+        <h1 className="mb-6 break-words font-serif text-3xl font-bold leading-tight lg:text-5xl">
           {c.title}
         </h1>
 
-        <h2 className="mb-8 text-2xl font-bold leading-snug text-accent md:text-3xl">
+        <h2 className="mb-5 text-lg font-semibold leading-relaxed text-accent md:text-xl">
           {c.subtitle}
         </h2>
 
-        <p className="mb-12 max-w-2xl text-lg leading-relaxed text-white/85 md:text-xl">
+        <p className="mb-8 text-base leading-relaxed text-white/80 md:text-lg">
           {c.intro}
         </p>
 
         <Link
           href="/contact"
-          className="inline-block bg-accent px-8 py-5 text-center font-bold text-background transition-opacity hover:opacity-90"
+          className="inline-block max-w-full bg-accent px-6 py-4 text-center text-sm font-bold text-background transition-opacity hover:opacity-90"
         >
           {c.quote}
         </Link>
       </div>
+
+      <div className="order-1 min-w-0 md:order-2">
+        <img
+          src="/images/photo_2026-10-25_18-28-20.jpg"
+          alt={
+            lang === "ar"
+              ? "الزي الطبي لفرق الرعاية الصحية"
+              : "Medical uniforms for healthcare teams"
+          }
+          className="block h-auto w-full"
+        />
+      </div>
     </div>
   </section>
 
-  {/* MEDICAL UNIFORM CATEGORIES */}
-  <section className="container mx-auto px-6 py-24 md:px-12">
-    <h2 className="mb-6 text-3xl font-bold md:text-5xl">
-      {c.collection}
-    </h2>
-
-    <p className="mb-12 max-w-2xl leading-relaxed text-muted">
-      {c.description}
-    </p>
-
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {c.items.map((item, index) => (
-        <div
-          key={item}
-          className="border border-line bg-surface p-8 transition-colors hover:border-accent"
-        >
-          <span className="text-sm font-bold text-accent">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
-          <h3 className="mt-6 text-xl font-bold">
-            {item}
-          </h3>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  {/* CUSTOM UNIFORMS */}
-  <section className="bg-surface py-24">
-    <div className="container mx-auto px-6 text-center md:px-12">
-      <h2 className="mb-7 text-3xl font-bold md:text-5xl">
-        {c.custom}
+  {/* CATEGORIES */}
+  <section
+    id="collection"
+    className="container mx-auto px-6 py-16 md:px-12 md:py-24"
+  >
+    <div className="mb-10 max-w-3xl">
+      <h2 className="mb-6 break-words font-serif text-2xl font-bold md:text-4xl">
+        {c.collection}
       </h2>
-
-      <p className="mx-auto mb-9 max-w-2xl leading-relaxed text-muted">
-        {c.details}
+      <p className="leading-relaxed text-muted">
+        {c.description}
       </p>
+    </div>
 
-      <Link
-        href="/contact"
-        className="inline-block bg-accent px-8 py-4 font-bold text-background transition-opacity hover:opacity-90"
-      >
-        {c.quote}
-      </Link>
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {c.items.map((item) => (
+        <li
+          key={item}
+          className="min-w-0 rounded-xl border border-line bg-foreground/5 p-6"
+        >
+          <h3 className="text-lg font-semibold">{item}</h3>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {/* CUSTOMISATION */}
+  <section className="border-y border-line bg-foreground/5">
+<div className="container mx-auto px-6 py-16 md:px-12">
+      <div className="max-w-3xl">
+        <h2 className="mb-6 break-words font-serif text-2xl font-bold md:text-4xl">
+          {c.custom}
+        </h2>
+
+        <p className="mb-8 leading-relaxed text-muted">
+          {c.details}
+        </p>
+
+        <Link
+          href="/contact"
+          className="inline-block max-w-full bg-accent px-6 py-4 text-center text-sm font-bold text-background transition-opacity hover:opacity-90"
+        >
+          {c.quote}
+        </Link>
+      </div>
     </div>
   </section>
 
