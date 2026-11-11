@@ -96,6 +96,15 @@ const c = content[lang];
 
 return (
 <main className="min-h-screen bg-background text-foreground">
+    <section
+  dir={isRTL ? "rtl" : "ltr"}
+  className="overflow-hidden bg-[#071018] text-white"
+>
+  <div className="container mx-auto grid grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
+    <div className="order-2 min-w-0 text-start md:order-1">
+      <p className="mb-5 text-xs font-bold tracking-widest text-accent md:text-sm">
+        {c.eyebrow}
+      </p>
 <h1 className="mb-6 break-words font-serif text-3xl font-bold leading-tight lg:text-5xl">
     {c.title}
   </h1>
@@ -127,8 +136,8 @@ return (
     className="block h-auto w-full"
   />
 </div>
-
-
+</div>
+</section>
   <section
     id="collection"
     className="container mx-auto px-6 py-24 md:px-12"
