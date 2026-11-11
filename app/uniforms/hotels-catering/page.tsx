@@ -96,46 +96,38 @@ const c = content[lang];
 
 return (
 <main className="min-h-screen bg-background text-foreground">
-<section className="relative flex min-h-[600px] items-center bg-[#071018]">
-  <div
-  aria-hidden="true"
-  className={
-    isRTL
-      ? "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:left-0 md:right-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"
-      : "absolute inset-0 bg-cover bg-center opacity-40 md:inset-y-0 md:right-0 md:left-auto md:w-1/2 md:bg-contain md:bg-no-repeat md:opacity-100"
-  }
-  style={{
-    backgroundImage: "url('/images/IMG_6747.PNG')",
-  }}
-/>
+<h1 className="mb-6 break-words font-serif text-3xl font-bold leading-tight lg:text-5xl">
+    {c.title}
+  </h1>
 
-    <div className="relative z-10 container mx-auto px-6 py-28 md:px-12">
-      <div className="max-w-4xl">
-        <p className="mb-6 font-bold tracking-widest text-accent">
-          {c.eyebrow}
-        </p>
+  <h2 className="mb-5 text-lg font-semibold leading-relaxed text-accent md:text-xl">
+    {c.subtitle}
+  </h2>
 
-        <h1 className="mb-7 font-serif text-4xl font-bold leading-tight text-white md:text-6xl">
-          {c.title}
-        </h1>
+  <p className="mb-8 text-base leading-relaxed text-white/80 md:text-lg">
+    {c.intro}
+  </p>
 
-        <h2 className="mb-6 text-xl font-semibold text-white">
-          {c.subtitle}
-        </h2>
+  <a
+    href="#collection"
+    className="inline-block max-w-full bg-accent px-6 py-4 text-center text-sm font-bold text-background transition-opacity hover:opacity-90"
+  >
+    {c.explore}
+  </a>
+</div>
 
-        <p className="mb-10 max-w-2xl text-lg leading-relaxed text-white/80">
-          {c.intro}
-        </p>
+<div className="order-1 min-w-0 md:order-2">
+  <img
+    src="/images/IMG_6747.PNG"
+    alt={
+      lang === "ar"
+        ? "الزي الموحد لفرق الفنادق والضيافة"
+        : "Uniforms for hotel and hospitality teams"
+    }
+    className="block h-auto w-full"
+  />
+</div>
 
-        <a
-          href="#collection"
-          className="inline-block bg-accent px-8 py-4 font-bold text-background transition-opacity hover:opacity-90"
-        >
-          {c.explore}
- </a>
-      </div>
-    </div>
-  </section>
 
   <section
     id="collection"
