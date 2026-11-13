@@ -34,7 +34,11 @@ export const ACTIVITY_LINKS = [
     labelKey: "uniforms",
     href: "/uniforms",
   },
-  
+  {
+    key: "DigitalMarketing",
+    labelKey: "digitalMarketing",
+    href: "/digital-marketing",
+  },
 ] as const;
 
 export const LEGACY_COMMODITY_ROUTES = [
