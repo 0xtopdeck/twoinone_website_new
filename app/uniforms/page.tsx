@@ -172,7 +172,47 @@ export default function UniformsPage() {
           <div><h2 className={clsx("text-2xl md:text-3xl font-serif font-bold mb-3", isRTL && "font-arabic")}>{c.partnerTitle}</h2><p className="text-white/65 leading-relaxed max-w-4xl">{c.partnerBody}</p></div>
         </div>
       </section>
+{/* Medical Uniforms */}
+  <section id="medical-uniforms" className="py-24 md:py-32 bg-background">
+    <div className="container mx-auto px-6 md:px-12">
+      <AnimatedSection direction="up" className="max-w-4xl">
+        <p className="text-accent text-xs font-bold uppercase tracking-[0.24em] mb-5">
+          {lang === "ar" ? "الزي الطبي" : "MEDICAL UNIFORMS"}
+        </p>
 
+        <h2 className={clsx(
+          "text-4xl md:text-6xl font-serif font-bold uppercase tracking-tighter mb-6",
+          isRTL && "font-arabic"
+        )}>
+          {lang === "ar"
+            ? "زي طبي بهوية مهنية."
+            : "Professional wear for healthcare teams."}
+        </h2>
+
+        <p className="text-muted text-base md:text-lg leading-relaxed max-w-2xl mb-9">
+          {lang === "ar"
+            ? "نساعد المؤسسات الصحية على استكشاف خيارات الزي الطبي المناسبة لفرقها. تواصل معنا لمناقشة الأنواع والمقاسات والألوان ومتطلبات الهوية."
+            : "Explore medical uniform options for clinics, hospitals, and healthcare teams. Contact us to discuss garment types, sizing, colours, and branding requirements."}
+        </p>
+
+        <Link
+          href="/contact"
+          className="inline-flex px-8 py-4 bg-accent text-background font-bold tracking-widest text-xs rounded-sm hover:bg-foreground hover:text-background transition-colors uppercase"
+        >
+          {lang === "ar" ? "استفسر عن الزي الطبي" : "ENQUIRE ABOUT MEDICAL UNIFORMS"}
+        </Link>
+     <div className="mt-12">
+  <Image
+    src="/images/photo_2026-10-25_18-28-20.jpg"
+    alt="Medical uniforms for healthcare professionals"
+    width={1600}
+    height={1000}
+    className="w-full h-auto rounded-2xl object-cover"
+  />
+</div>
+      </AnimatedSection>
+    </div>
+  </section>
       <section className="py-24 md:py-32 bg-surface text-center">
         <ShieldCheck className="w-9 h-9 text-accent mx-auto mb-6" />
         <h2 className={clsx("text-4xl md:text-6xl font-serif font-bold uppercase tracking-tighter", isRTL && "font-arabic")}>{c.ctaTitle}</h2>

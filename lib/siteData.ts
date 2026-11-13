@@ -35,14 +35,9 @@ export const ACTIVITY_LINKS = [
     href: "/uniforms",
   },
   {
-    key: "AutoParts",
-    labelKey: "machineryAutoParts",
-    href: "/auto-parts",
-  },
-  {
-    key: "Commodities",
-    labelKey: "commodities",
-    href: "/commodities",
+    key: "DigitalMarketing",
+    labelKey: "digitalMarketing",
+    href: "/digital-marketing",
   },
 ] as const;
 

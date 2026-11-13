@@ -209,6 +209,7 @@ export default function ContactPage() {
                       <option value="events">{t.nav.events}</option>
                       <option value="facility-services">{t.nav.facilityServices}</option>
                       <option value="uniforms">{t.nav.uniforms}</option>
+                      <option value="medical-uniforms">{lang === "ar" ? "الزي الطبي" : "Medical Uniforms"}</option>
                       <option value="auto-parts">{t.nav.machineryAutoParts}</option>
                       <option value="commodities">{t.nav.commodities}</option>
                       <option value="other">{t.common.other}</option>
