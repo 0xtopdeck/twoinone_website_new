@@ -118,10 +118,10 @@ export default function DigitalMarketingPage() {
       dir={isRTL ? "rtl" : "ltr"}
       className="min-h-screen bg-background text-foreground"
     >
-      {/* INTRODUCTION */}
+           {/* INTRODUCTION */}
       <section className="overflow-hidden bg-[#071018] text-white">
-        <div className="container mx-auto px-6 py-16 md:px-12 md:py-24">
-          <div className="max-w-3xl">
+        <div className="container mx-auto grid grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-2 md:gap-12 md:px-12 md:py-20">
+          <div className="order-2 min-w-0 text-start md:order-1">
             <p className="mb-5 text-xs font-bold tracking-widest text-accent md:text-sm">
               {c.eyebrow}
             </p>
@@ -141,6 +141,22 @@ export default function DigitalMarketingPage() {
             <a href="#services" className={buttonClass}>
               {c.explore}
             </a>
+          </div>
+
+          <div className="order-1 min-w-0 md:order-2">
+            <img
+              src="/images/digital-marketing.png"
+              alt={
+                lang === "ar"
+                  ? "مساحة عمل لإنتاج المحتوى والتسويق الرقمي تضم كاميرا وحاسوباً وهاتفاً"
+                  : "Digital marketing and content production workspace with a camera, laptop and smartphone"
+              }
+              width={1448}
+              height={1086}
+              loading="eager"
+              decoding="async"
+              className="block h-auto w-full"
+            />
           </div>
         </div>
       </section>
