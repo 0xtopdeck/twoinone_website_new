@@ -145,7 +145,7 @@ export default function DigitalMarketingPage() {
 
           <div className="order-1 min-w-0 md:order-2">
             <img
-              src="/images/digital-marketing.png"
+             src="/images/digital-marketing.PNG.png"
               alt={
                 lang === "ar"
                   ? "مساحة عمل لإنتاج المحتوى والتسويق الرقمي تضم كاميرا وحاسوباً وهاتفاً"
